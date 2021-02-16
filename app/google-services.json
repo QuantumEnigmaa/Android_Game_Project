@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "586825381508",
+    "firebase_url": "https://monster-fighter-d8e4b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "monster-fighter-d8e4b",
+    "storage_bucket": "monster-fighter-d8e4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586825381508:android:f13a7aac41cbfa06a2b4d1",
+        "android_client_info": {
+          "package_name": "fr.isen.monsterfighter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586825381508-5salu7f9bcindesdll7hk1onov0jke3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCA86F3vRgdsZNi9s4zsqlSwdldEy37ZS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586825381508-5salu7f9bcindesdll7hk1onov0jke3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
