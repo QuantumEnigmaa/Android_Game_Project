@@ -13,7 +13,6 @@ import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import fr.isen.monsterfighter.Extensions.Extensions.dialog
 import fr.isen.monsterfighter.Extensions.Extensions.toast
-import fr.isen.monsterfighter.Model.Image
 import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.databinding.ActivityProfileBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.firebaseAuth
@@ -35,9 +34,11 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Getting user's data
+        // Getting user's data and managing UI
         loadUserData()
         binding.profilePseudo.text = user.userName
+        if (user.profileImageUrl != "") Picasso.get().load(user.profileImageUrl).placeholder(R.drawable.searching).into(binding.profileImage) else
+            Picasso.get().load(R.drawable.searching).into(binding.profileImage)
 
         // Changing Profile image
         binding.profileImage.setOnClickListener {
@@ -60,13 +61,19 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun getUserId(): String {
+        // accessing cache
+        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
+        return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
+    }
+
     private fun loadUserData() {
         userRef.addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (u in snapshot.children) {
                         Log.i("user selected", u.toString())
-                        (u == firebaseAuth.currentUser).run { user = snapshot.getValue(User::class.java)!! }
+                        (u.value == getUserId()).run { user = snapshot.getValue(User::class.java)!! }
                     }
                 }
 
@@ -81,8 +88,8 @@ class ProfileActivity : AppCompatActivity() {
         val imgFile: StorageReference = storageRef.child(UUID.randomUUID().toString())
         imgFile.putFile(filepath).addOnSuccessListener {
             imgFile.downloadUrl.addOnSuccessListener {
-                val image: Image = Image(it.toString())
-                //TODO modifiy user to add image url
+                // Adding image url to the user in database
+                userRef.child(getUserId()).child("profileImageUrl").setValue(it.toString())
             }.addOnFailureListener {
                 it.message?.let { it1 -> toast(it1) }
             }

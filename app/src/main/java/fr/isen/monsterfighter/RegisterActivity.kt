@@ -19,6 +19,11 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var userName: String
     lateinit var createAccountInputsArray: Array<EditText>
 
+    companion object {
+        const val USER_PREF = "userPref"
+        const val USER_ID = "id"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -77,7 +82,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
-        val newUser = User(userName, null, 0, ArrayList(), ArrayList())
-        userRef.child(userRef.push().key.toString()).setValue(newUser)
+        val newUser = User(userName, "", 0, ArrayList(), ArrayList())
+        val userID = userRef.push().key.toString()
+        userRef.child(userID).setValue(newUser)
+
+        // Storing the userID in the cache
+        val sharedPreferences = getSharedPreferences(USER_PREF, MODE_PRIVATE)
+        sharedPreferences.edit().putString(USER_ID, userID).apply()
     }
 }
