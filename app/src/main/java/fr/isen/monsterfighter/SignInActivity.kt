@@ -49,12 +49,14 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val intent = Intent(this, HomeActivity::class.java)
+        //val intent = Intent(this, HomeActivity::class.java)
 
         MainScope().launch {
             supportActionBar?.hide()
             loadingAnimation.playAnimation()
             delay(5500)
+            loadingAnimation.stopAnimation(binding.root)
+            supportActionBar?.show()
             val user: FirebaseUser? = firebaseAuth.currentUser
             user?.let {
                 startActivity(intent)
