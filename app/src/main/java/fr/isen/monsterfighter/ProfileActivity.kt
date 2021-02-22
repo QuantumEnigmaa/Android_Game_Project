@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -27,7 +28,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var filepath: Uri
-    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,20 +36,16 @@ class ProfileActivity : AppCompatActivity() {
 
         // Getting user's data and managing UI
         loadUserData()
-        binding.profilePseudo.text = user.userName
-        if (user.profileImageUrl != "") Picasso.get().load(user.profileImageUrl).placeholder(R.drawable.searching).into(binding.profileImage) else
-            Picasso.get().load(R.drawable.searching).into(binding.profileImage)
 
         // Changing Profile image
         binding.profileImage.setOnClickListener {
-            dialog("Voulez-vous changer votre image de profil ?", "Image de profil", false) { loadChosenPicture() }
             binding.imageUploadProgress.apply {
                 progressMax = 100f
                 progressBarWidth = 5f
                 backgroundProgressBarWidth = 2f
                 progressBarColor = Color.BLUE
             }
-            uploadData()
+            dialog("Voulez-vous changer votre image de profil ?", "Image de profil", false) { loadChosenPicture() }
         }
 
         // User signing out
@@ -67,13 +63,23 @@ class ProfileActivity : AppCompatActivity() {
         return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
     }
 
+    private fun setUI(user: User) {
+        binding.profilePseudo.text = user.userName
+        if (user.profileImageUrl != "") {
+            Picasso.get().load(user.profileImageUrl).placeholder(R.drawable.searching).into(binding.profileImage)
+        } else {
+            Picasso.get().load(R.drawable.searching).into(binding.profileImage)
+        }
+    }
+
     private fun loadUserData() {
         userRef.addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (u in snapshot.children) {
-                        Log.i("user selected", u.toString())
-                        (u.value == getUserId()).run { user = snapshot.getValue(User::class.java)!! }
+                    snapshot.children.firstOrNull { it.key.toString() == getUserId() }?.let {
+                        it.getValue(User::class.java)?.let { u ->
+                            setUI(u)
+                        }
                     }
                 }
 
@@ -85,19 +91,26 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadData() {
-        val imgFile: StorageReference = storageRef.child(UUID.randomUUID().toString())
-        imgFile.putFile(filepath).addOnSuccessListener {
-            imgFile.downloadUrl.addOnSuccessListener {
-                // Adding image url to the user in database
-                userRef.child(getUserId()).child("profileImageUrl").setValue(it.toString())
+        if (::filepath.isInitialized) {
+            binding.imageUploadProgress.visibility = View.VISIBLE
+            val imgFile: StorageReference = storageRef.child(UUID.randomUUID().toString())
+            imgFile.putFile(filepath).addOnSuccessListener {
+                imgFile.downloadUrl.addOnSuccessListener {
+                    // Adding image url to the user in database
+                    userRef.child(getUserId()).child("profileImageUrl").setValue(it.toString())
+                }.addOnFailureListener {
+                    it.message?.let { it1 -> toast(it1) }
+                }
             }.addOnFailureListener {
                 it.message?.let { it1 -> toast(it1) }
+            }.addOnProgressListener {
+                var prog: Long = (100 * it.bytesTransferred/it.totalByteCount)
+                binding.imageUploadProgress.setProgressWithAnimation(prog.toFloat(), 1000)
+            }.addOnCompleteListener {
+                binding.imageUploadProgress.visibility = View.GONE
             }
-        }.addOnFailureListener {
-            it.message?.let { it1 -> toast(it1) }
-        }.addOnProgressListener {
-            val prog: Long = (100 * it.bytesTransferred/it.totalByteCount)
-            binding.imageUploadProgress.setProgressWithAnimation(prog.toFloat(), 1000)
+        } else {
+            toast("Erreur lors du chargement de l'image")
         }
     }
 
@@ -114,6 +127,7 @@ class ProfileActivity : AppCompatActivity() {
                 if (resultCode == RESULT_OK) {
                     filepath = data?.data!!
                     Picasso.get().load(filepath).placeholder(R.drawable.searching).into(binding.profileImage)
+                    uploadData()
                 }
         }
     }

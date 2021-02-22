@@ -3,6 +3,7 @@ package fr.isen.monsterfighter.Extensions
 import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 

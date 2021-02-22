@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MonsterFighter</string>
     <string name="signin_title">Connexion à votre compte</string>
-    <string name="signin_username">Identifiant</string>
-    <string name="enter_username">Entrez votre identifiant</string>
+    <string name="signin_email">E-Mail</string>
+    <string name="enter_email">Entrez votre e-mail</string>
     <string name="signin_password">Mot de passe</string>
     <string name="enter_password">Entrez votre mot de passe</string>
     <string name="signin_connect">Se connecter</string>
