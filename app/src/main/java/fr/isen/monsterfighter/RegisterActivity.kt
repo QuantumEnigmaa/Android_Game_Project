@@ -22,6 +22,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         const val USER_PREF = "userPref"
         const val USER_ID = "id"
+        const val USER_CURRENT_LVL = "currentLvl"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,8 +87,9 @@ class RegisterActivity : AppCompatActivity() {
         val userID = userRef.push().key.toString()
         userRef.child(userID).setValue(newUser)
 
-        // Storing the userID in the cache
+        // Storing the userID and Current lvl in the cache
         val sharedPreferences = getSharedPreferences(USER_PREF, MODE_PRIVATE)
         sharedPreferences.edit().putString(USER_ID, userID).apply()
+        sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
     }
 }

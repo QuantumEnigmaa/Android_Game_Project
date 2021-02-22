@@ -63,6 +63,11 @@ class ProfileActivity : AppCompatActivity() {
         return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
     }
 
+    private fun getUserCurrentLvl(): Int {
+        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
+        return sharedPreferences.getInt(RegisterActivity.USER_CURRENT_LVL, 0)
+    }
+
     private fun setUI(user: User) {
         binding.profilePseudo.text = user.userName
         if (user.profileImageUrl != "") {
@@ -70,6 +75,9 @@ class ProfileActivity : AppCompatActivity() {
         } else {
             Picasso.get().load(R.drawable.searching).into(binding.profileImage)
         }
+        binding.profileLvlLower.text = getUserCurrentLvl().toString()
+        binding.profileLvlHigher.text = (getUserCurrentLvl() + 1).toString()
+        binding.profileLvlBar.progress = user.userLvl
     }
 
     private fun loadUserData() {

@@ -27,4 +27,6 @@
     <string name="gameSelector_multi">Multijoueur</string>
     <string name="profile_imageDescription">Image de profil</string>
     <string name="profile_disconnectButton">Déconnexion</string>
+    <string name="profile_lvl">Niveau</string>
+    <string name="profile_lvlNumber">0</string>
 </resources>
