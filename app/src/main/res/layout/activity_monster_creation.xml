@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/monsterCreationSeparator"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="280dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="24dp"
@@ -26,14 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/border_rectangle"
-        android:paddingStart="16dp"
-        android:paddingTop="48dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="16dp"
-        android:text="@string/statistics_list"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:padding="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/monsterCreationSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -49,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/monsterCreationStats" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/monsterCreationSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -75,7 +71,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="@string/monster_name" />
+            android:hint="@string/monster_name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -83,37 +79,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="168dp"
+        android:layout_marginEnd="146dp"
         android:text="@string/profile_lvlNumber"
         app:layout_constraintEnd_toEndOf="@+id/monsterCreationStats"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationStatsTitle" />
 
     <TextView
-        android:id="@+id/monsterCReationStatsIntel"
+        android:id="@+id/monsterCreationStatsIntel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
+        android:layout_marginEnd="146dp"
         android:text="@string/profile_lvlNumber"
         app:layout_constraintEnd_toEndOf="@+id/monsterCreationStats"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationStatsStrengh" />
 
     <TextView
-        android:id="@+id/monsterCReationStatsDext"
+        android:id="@+id/monsterCreationStatsDext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
+        android:layout_marginEnd="146dp"
         android:text="@string/profile_lvlNumber"
         app:layout_constraintEnd_toEndOf="@+id/monsterCreationStats"
-        app:layout_constraintTop_toBottomOf="@+id/monsterCReationStatsIntel" />
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationStatsIntel" />
 
     <TextView
         android:id="@+id/monsterCreationStatsHp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
+        android:layout_marginEnd="146dp"
         android:text="@string/profile_lvlNumber"
         app:layout_constraintEnd_toEndOf="@+id/monsterCreationStats"
-        app:layout_constraintTop_toBottomOf="@+id/monsterCReationStatsDext" />
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationStatsDext" />
 
     <TextView
         android:id="@+id/monsterCreationNext1"
@@ -129,11 +125,13 @@
         android:id="@+id/monsterCreationPrevious1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_right_arrow"
         android:rotation="-180"
         app:layout_constraintEnd_toStartOf="@+id/MonsterCreationPart1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout" />
 
     <ImageView
@@ -141,7 +139,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="80dp"
         android:contentDescription="@string/parts_description"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationSeparator"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout"
@@ -161,11 +159,13 @@
         android:id="@+id/monsterCreationPrevious2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_right_arrow"
         android:rotation="-180"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationPart2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationPrevious1" />
 
     <ImageView
@@ -173,7 +173,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="80dp"
         android:contentDescription="@string/parts_description"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationSeparator"
         app:layout_constraintTop_toBottomOf="@+id/MonsterCreationPart1"
@@ -193,11 +193,13 @@
         android:id="@+id/monsterCreationPrevious3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_right_arrow"
         android:rotation="-180"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationPart3"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationPrevious2" />
 
     <ImageView
@@ -205,7 +207,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="80dp"
         android:contentDescription="@string/parts_description"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationSeparator"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationPart2"
@@ -225,11 +227,13 @@
         android:id="@+id/monsterCreationPrevious4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/ic_right_arrow"
         android:rotation="-180"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationPart4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationPrevious3" />
 
     <ImageView
@@ -237,7 +241,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginEnd="80dp"
         android:contentDescription="@string/parts_description"
         app:layout_constraintEnd_toStartOf="@+id/monsterCreationSeparator"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationPart3"
@@ -284,5 +288,42 @@
         android:text="@string/slash"
         app:layout_constraintStart_toEndOf="@+id/monsterCreationSeparator"
         app:layout_constraintTop_toBottomOf="@+id/monsterCreationSlots" />
+
+    <TextView
+        android:id="@+id/monsterCreationStrength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/statistics_Strength"
+        app:layout_constraintStart_toStartOf="@+id/monsterCreationStats"
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationStatsTitle" />
+
+    <TextView
+        android:id="@+id/monsterCreationIntel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/statistics_Intel"
+        app:layout_constraintStart_toStartOf="@+id/monsterCreationStats"
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationStrength" />
+
+    <TextView
+        android:id="@+id/monsterCreationDext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/statistics_Dext"
+        app:layout_constraintStart_toStartOf="@+id/monsterCreationStats"
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationIntel" />
+
+    <TextView
+        android:id="@+id/monsterCreationHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="@string/statistics_HP"
+        app:layout_constraintStart_toStartOf="@+id/monsterCreationStats"
+        app:layout_constraintTop_toBottomOf="@+id/monsterCreationDext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

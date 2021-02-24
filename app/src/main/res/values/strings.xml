@@ -31,7 +31,10 @@
     <string name="profile_lvlNumber">0</string>
     <string name="monster_name">Nom du monstre</string>
     <string name="save">Sauvegarder</string>
-    <string name="statistics_list">Force :<br/>Intelligence :<br/>Dextérité :<br/>HP :</string>
+    <string name="statistics_Strength">Force :</string>
+    <string name="statistics_Intel">Intelligence :</string>
+    <string name="statistics_Dext">Dextérité :</string>
+    <string name="statistics_HP">HP :</string>
     <string name="statistics_title">Statistiques du monstre</string>
     <string name="parts_description">Image de partie de monstre</string>
     <string name="slots">Emplacements</string>
