@@ -1,7 +1,10 @@
 package fr.isen.monsterfighter
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -13,11 +16,20 @@ import fr.isen.monsterfighter.Extensions.Extensions.dialog
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.databinding.ActivityMonsterCreationBinding
+import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
+import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.partsRef
+import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityMonsterCreationBinding
+
+    private lateinit var partsList: ArrayList<Parts>
+
+    companion object {
+        private const val MAX_SLOTS = 20
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +38,22 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
 
         // Fetching monster parts data from Firebase
         val images: ArrayList<ImageView> = createListImages()
-        val partsList: ArrayList<Parts> = loadParts(images)
+        partsList = loadParts(images)
+
+        binding.monsterCreationCurrentSlots.addTextChangedListener(
+                object : TextWatcher {
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        setTextColor(s)
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+
+                }
+        )
 
         // Handling buttons
         binding.monsterCreationNext1.setOnClickListener(this)
@@ -38,6 +65,18 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         binding.monsterCreationPrevious3.setOnClickListener(this)
         binding.monsterCreationPrevious4.setOnClickListener(this)
         binding.monsterCreationSave.setOnClickListener(this)
+    }
+
+    private fun setTextColor(s: CharSequence?) {
+        if (s.toString().toInt() > MAX_SLOTS) {
+            binding.monsterCreationCurrentSlots.setTextColor(Color.RED)
+            binding.monsterCreationSlash.setTextColor(Color.RED)
+            binding.monsterCreationMaxSlots.setTextColor(Color.RED)
+        } else {
+            binding.monsterCreationCurrentSlots.setTextColor(Color.BLACK)
+            binding.monsterCreationSlash.setTextColor(Color.BLACK)
+            binding.monsterCreationMaxSlots.setTextColor(Color.BLACK)
+        }
     }
 
     private fun createListImages(): ArrayList<ImageView> {
@@ -105,16 +144,41 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
             binding.monsterCreationPrevious4 -> {  }
             binding.monsterCreationSave -> {
                 val slots: String = binding.monsterCreationCurrentSlots.text.toString()
-                if (slots.toInt() <= 20) {
-                    uploadMonster()
+                if (slots.toInt() <= MAX_SLOTS && binding.monsterCreationMonsterName.text != null) {
+                    uploadMonster(partsList)
                 } else {
-                    dialog("Nombre maximum d'emplacement dépassé !", "Attention !", true) {}
+                    if (slots.toInt() > MAX_SLOTS)
+                        dialog("Nombre maximum d'emplacement dépassé !", "Attention !", true) {}
+                    else
+                        dialog("Donnez un nom à votre monstre !", "Attention !", true) {}
                 }
             }
         }
     }
 
-    private fun uploadMonster() {
-        //TODO
+    private fun createMonster(lstTotParts: ArrayList<Parts>): Monster {
+        val partsMonster: ArrayList<Parts> = ArrayList(4)
+        var i = 0
+        while (i < 4) {
+            partsMonster.add(lstTotParts[i])
+            i++
+        }
+        return Monster(binding.monsterCreationStatsHp.text.toString().toInt(), partsMonster,
+                binding.monsterCreationMonsterName.text.toString(),
+                binding.monsterCreationStrength.text.toString().toInt(),
+                binding.monsterCreationStatsIntel.text.toString().toInt(),
+                binding.monsterCreationStatsDext.text.toString().toInt())
+    }
+
+    private fun uploadMonster(partsList: ArrayList<Parts>) {
+        // Monster handling
+        val monster = createMonster(partsList)
+        val monsterId = monsterRef.push().key.toString()
+        monsterRef.child(monsterId).setValue(monster)
+
+        // Adding monster to user's monster list
+        val monsterList: ArrayList<Monster> = ArrayList()
+        monsterList.add(monster)
+        userRef.child(getUserId()).child("listMonsters").setValue(monsterList)
     }
 }

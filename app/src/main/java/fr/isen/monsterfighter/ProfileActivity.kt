@@ -17,6 +17,8 @@ import fr.isen.monsterfighter.Extensions.Extensions.toast
 import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.databinding.ActivityProfileBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.firebaseAuth
+import fr.isen.monsterfighter.utils.FirebaseUtils.getUserCurrentLvl
+import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
 import fr.isen.monsterfighter.utils.FirebaseUtils.storageRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 import java.util.*
@@ -55,17 +57,6 @@ class ProfileActivity : AppCompatActivity() {
             toast("Vous avez été déconnecté")
             finish()
         }
-    }
-
-    private fun getUserId(): String {
-        // accessing cache
-        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
-        return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
-    }
-
-    private fun getUserCurrentLvl(): Int {
-        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
-        return sharedPreferences.getInt(RegisterActivity.USER_CURRENT_LVL, 0)
     }
 
     private fun setUI(user: User) {
