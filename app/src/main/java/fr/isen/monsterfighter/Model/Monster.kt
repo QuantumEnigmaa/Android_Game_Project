@@ -1,4 +1,4 @@
 package fr.isen.monsterfighter.Model
 
-data class Monster (var mCurrentHp: Int, val mLstPartsId: ArrayList<Parts>, val mName: String,
-val mStrength: Int, val mIntel: Int, val mDext: Int)
+data class Monster (var mCurrentHp: Int = 0, var mLstPartsId: ArrayList<Parts> = ArrayList(), var mName: String = "",
+var mStrength: Int = 0, var mIntel: Int = 0, var mDext: Int = 0)

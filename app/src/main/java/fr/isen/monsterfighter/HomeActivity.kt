@@ -40,7 +40,8 @@ class HomeActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             snapshot.children.firstOrNull { it.key.toString() == getUserId() }?.let {
                                 it.getValue(User::class.java)?.let {
-                                    if (it.listMonsters.isEmpty()) startActivity(intentCreat) else startActivity(intentCheck)
+                                    //TODO PUT INTENTCHECK ON ELSE
+                                    if (it.listMonsters.isEmpty()) startActivity(intentCreat) else startActivity(intentCreat)
                                 }
                             }
                         }

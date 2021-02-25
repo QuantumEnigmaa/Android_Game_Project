@@ -19,7 +19,7 @@ object FirebaseUtils : AppCompatActivity() {
     private val firebaseStorage: FirebaseStorage = FirebaseStorage.getInstance()
     val storageRef: StorageReference = firebaseStorage.getReference("profileImages")
 
-    fun getUserId(): String {
+    /*fun getUserId(): String {
         // accessing cache
         val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
         return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
@@ -28,5 +28,5 @@ object FirebaseUtils : AppCompatActivity() {
     fun getUserCurrentLvl(): Int {
         val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
         return sharedPreferences.getInt(RegisterActivity.USER_CURRENT_LVL, 0)
-    }
+    }*/
 }

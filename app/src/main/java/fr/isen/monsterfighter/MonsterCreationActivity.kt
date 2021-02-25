@@ -1,5 +1,6 @@
 package fr.isen.monsterfighter
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +17,7 @@ import fr.isen.monsterfighter.Extensions.Extensions.dialog
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.databinding.ActivityMonsterCreationBinding
-import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
+//import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
 import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.partsRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
@@ -35,6 +36,8 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMonsterCreationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Log.i("AAAAH", "A L'AIDE")
 
         // Fetching monster parts data from Firebase
         val images: ArrayList<ImageView> = createListImages()
@@ -134,6 +137,7 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
+            //TODO ADD METHODS TO SWITCH IMAGES
             binding.monsterCreationNext1 -> {  }
             binding.monsterCreationNext2 -> {  }
             binding.monsterCreationNext3 -> {  }
@@ -144,8 +148,10 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
             binding.monsterCreationPrevious4 -> {  }
             binding.monsterCreationSave -> {
                 val slots: String = binding.monsterCreationCurrentSlots.text.toString()
-                if (slots.toInt() <= MAX_SLOTS && binding.monsterCreationMonsterName.text != null) {
+                if (slots.toInt() <= MAX_SLOTS && binding.monsterCreationMonsterName.text.toString() != "") {
                     uploadMonster(partsList)
+                    startActivity(Intent(this, MonsterRecapActivity::class.java))
+                    finish()
                 } else {
                     if (slots.toInt() > MAX_SLOTS)
                         dialog("Nombre maximum d'emplacement dépassé !", "Attention !", true) {}
@@ -156,7 +162,14 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    fun getUserId(): String {
+        // accessing cache
+        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
+        return sharedPreferences.getString(RegisterActivity.USER_ID, "")!!
+    }
+
     private fun createMonster(lstTotParts: ArrayList<Parts>): Monster {
+        //TODO TRANSFORM PARTSMONSTER INTO AN ID LIST INSTEAD OF A PARTS LIST FOR MORE EFFICIENT DATABASE USAGE
         val partsMonster: ArrayList<Parts> = ArrayList(4)
         var i = 0
         while (i < 4) {
@@ -165,7 +178,7 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         }
         return Monster(binding.monsterCreationStatsHp.text.toString().toInt(), partsMonster,
                 binding.monsterCreationMonsterName.text.toString(),
-                binding.monsterCreationStrength.text.toString().toInt(),
+                binding.monsterCreationStatsStrengh.text.toString().toInt(),
                 binding.monsterCreationStatsIntel.text.toString().toInt(),
                 binding.monsterCreationStatsDext.text.toString().toInt())
     }
