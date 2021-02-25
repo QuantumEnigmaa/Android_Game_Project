@@ -53,11 +53,11 @@ class SignInActivity : AppCompatActivity() {
 
         MainScope().launch {
             //TODO PUT LINE 56 TO 60 BETWEEN /**/ WHILE DEVLOPING TO GAIN TIME
-            //supportActionBar?.hide()
-            //loadingAnimation.playAnimation()
-            //delay(5500)
-            //loadingAnimation.stopAnimation(binding.root)
-            //supportActionBar?.show()
+            supportActionBar?.hide()
+            loadingAnimation.playAnimation()
+            delay(5500)
+            loadingAnimation.stopAnimation(binding.root)
+            supportActionBar?.show()
             val user: FirebaseUser? = firebaseAuth.currentUser
             user?.let {
                 startActivity(intent)
