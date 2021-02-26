@@ -27,4 +27,15 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectorSoloButton" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/selectorAnimation"
+        android:layout_width="match_parent"
+        android:translationZ="90dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="184dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
