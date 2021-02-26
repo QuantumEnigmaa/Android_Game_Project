@@ -11,6 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MonsterFighter">
+        <activity android:name=".MonsterRecapActivity"></activity>
+        <activity android:name=".MonsterCreationActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".GameSelectorActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

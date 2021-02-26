@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">MonsterFighter</string>
+    <string name="signin_title">Connexion à votre compte</string>
+    <string name="signin_email">E-Mail</string>
+    <string name="enter_email">Entrez votre e-mail</string>
+    <string name="signin_password">Mot de passe</string>
+    <string name="enter_password">Entrez votre mot de passe</string>
+    <string name="signin_connect">Se connecter</string>
+    <string name="forgotten_password">Mot de passe oublié ?</string>
+    <string name="resetPassword_title">Réinitialisation du mot-de-passe</string>
+    <string name="resetPassword_explanation">Pour réinitialiser votre mot de passe,
+    entrez votre adresse e-mail, appuyez sur le bouton et regardez vottre boite mail pour suivre
+    la suit des instructions</string>
+    <string name="resetPassword">Réinitialiser le mot-de-passe</string>
+    <string name="profileImage_description">Logo image de profil</string>
+    <string name="keyImage_description">Logo de clé</string>
+    <string name="register_title">Création de votre compte</string>
+    <string name="register_email">Votre e-mail</string>
+    <string name="register_username">Votre pseudo</string>
+    <string name="register_password">Votre mot-de-passe</string>
+    <string name="register_passwordAgain">Confirmez votre mot-de-passe</string>
+    <string name="register_confirm">Créer le compte</string>
+    <string name="home_profilButton">Profil</string>
+    <string name="home_teamButton">Mes monstres</string>
+    <string name="home_gameButton">Jouer</string>
+    <string name="gameSelector_solo">Donjon</string>
+    <string name="gameSelector_multi">Multijoueur</string>
+    <string name="profile_imageDescription">Image de profil</string>
+    <string name="profile_disconnectButton">Déconnexion</string>
+    <string name="profile_lvl">Niveau</string>
+    <string name="profile_lvlNumber">0</string>
+    <string name="monster_name">Nom du monstre</string>
+    <string name="save">Sauvegarder</string>
+    <string name="statistics_Strength">Force :</string>
+    <string name="statistics_Intel">Intelligence :</string>
+    <string name="statistics_Dext">Dextérité :</string>
+    <string name="statistics_HP">HP :</string>
+    <string name="statistics_title">Statistiques du monstre</string>
+    <string name="parts_description">Image de partie de monstre</string>
+    <string name="slots">Emplacements</string>
+    <string name="slots_max">20</string>
+    <string name="slash">/</string>
 </resources>
