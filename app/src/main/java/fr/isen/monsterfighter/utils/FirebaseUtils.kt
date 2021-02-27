@@ -1,5 +1,6 @@
 package fr.isen.monsterfighter.utils
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
