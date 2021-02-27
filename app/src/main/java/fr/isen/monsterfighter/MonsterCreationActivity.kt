@@ -78,9 +78,9 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
             binding.monsterCreationSlash.setTextColor(Color.RED)
             binding.monsterCreationMaxSlots.setTextColor(Color.RED)
         } else {
-            binding.monsterCreationCurrentSlots.setTextColor(Color.BLACK)
-            binding.monsterCreationSlash.setTextColor(Color.BLACK)
-            binding.monsterCreationMaxSlots.setTextColor(Color.BLACK)
+            binding.monsterCreationCurrentSlots.setTextColor(Color.GRAY)
+            binding.monsterCreationSlash.setTextColor(Color.GRAY)
+            binding.monsterCreationMaxSlots.setTextColor(Color.GRAY)
         }
     }
 
@@ -165,6 +165,14 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun changeImage(i: Int, next: Boolean) {
+        // Saving current stats values
+        val currentStrength = partsList[imagePositionList[i]].pStrength
+        val currentIntel = partsList[imagePositionList[i]].pIntel
+        val currentDext = partsList[imagePositionList[i]].pDext
+        val currentHP = partsList[imagePositionList[i]].pHP
+        val currentSlot = partsList[imagePositionList[i]].pSlot
+
+        // Updating Part position
         if (imagePositionList[i] == (partsList.size - 1) && next) {
             imagePositionList[i] = 0
         } else if (imagePositionList[i] == 0 && !next) {
@@ -173,6 +181,18 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
             if (next) imagePositionList[i] ++ else imagePositionList[i] --
         }
         Picasso.get().load(partsList[imagePositionList[i]].pImgUrl).into(images[i])
+
+        // Updating stats values
+        val newStrengthValue = binding.monsterCreationStatsStrengh.text.toString().toInt() - currentStrength + partsList[imagePositionList[i]].pStrength
+        val newIntelValue = binding.monsterCreationStatsIntel.text.toString().toInt() - currentIntel + partsList[imagePositionList[i]].pIntel
+        val newDextValue = binding.monsterCreationStatsDext.text.toString().toInt() - currentDext + partsList[imagePositionList[i]].pDext
+        val newHpValue = binding.monsterCreationStatsHp.text.toString().toInt() - currentHP + partsList[imagePositionList[i]].pHP
+        val newSlotValue = binding.monsterCreationCurrentSlots.text.toString().toInt() - currentSlot + partsList[imagePositionList[i]].pSlot
+        binding.monsterCreationStatsStrengh.text  = newStrengthValue.toString()
+        binding.monsterCreationStatsIntel.text = newIntelValue.toString()
+        binding.monsterCreationStatsDext.text = newDextValue.toString()
+        binding.monsterCreationStatsHp.text = newHpValue.toString()
+        binding.monsterCreationCurrentSlots.text = newSlotValue.toString()
     }
 
     fun getUserId(): String {
