@@ -18,6 +18,7 @@
     <string name="register_email">Votre e-mail</string>
     <string name="register_username">Votre pseudo</string>
     <string name="register_password">Votre mot-de-passe</string>
+    <string name="confirm_password">Confirmer mot-de-passe</string>
     <string name="register_passwordAgain">Confirmez votre mot-de-passe</string>
     <string name="register_confirm">Créer le compte</string>
     <string name="home_profilButton">Profil</string>
