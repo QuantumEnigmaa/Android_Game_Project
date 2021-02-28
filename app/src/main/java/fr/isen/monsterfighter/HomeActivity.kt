@@ -7,7 +7,6 @@ import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.databinding.ActivityHomeBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
@@ -43,7 +42,6 @@ class HomeActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if(snapshot.exists()) startActivity(intentCheck) else startActivity(intentCreat)
                         }
-
                         override fun onCancelled(error: DatabaseError) {
                             Log.i("current user error", error.toString())
                         }
@@ -52,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    //TODO put in model or utils cuz code duplication
     private fun getUserId(): String {
         // accessing cache
         val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
