@@ -35,15 +35,13 @@ class HomeActivity : AppCompatActivity() {
         val intentCreat = Intent(this, MonsterCreationActivity::class.java)
         val intentCheck = Intent(this, MonsterRecapActivity::class.java)
         binding.homePartyButton.setOnClickListener {
-            userRef.addValueEventListener(
+
+
+            //TODO Better getUserId (import from utils or model)
+            userRef.child(getUserId()).child("listMonsters").addValueEventListener(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            snapshot.children.firstOrNull { it.key.toString() == getUserId() }?.let {
-                                it.getValue(User::class.java)?.let {
-                                    //TODO PUT INTENTCHECK ON ELSE
-                                    if (it.listMonsters.isEmpty()) startActivity(intentCreat) else startActivity(intentCreat)
-                                }
-                            }
+                            if(snapshot.exists()) startActivity(intentCheck) else startActivity(intentCreat)
                         }
 
                         override fun onCancelled(error: DatabaseError) {
