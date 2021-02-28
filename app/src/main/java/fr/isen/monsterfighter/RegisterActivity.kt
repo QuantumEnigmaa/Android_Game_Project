@@ -83,13 +83,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
+        val fbUserID = firebaseAuth.currentUser?.uid.toString()
         val newUser = User(userName, "", 0, ArrayList(), ArrayList())
-        val userID = userRef.push().key.toString()
-        userRef.child(userID).setValue(newUser)
+        userRef.child(fbUserID).setValue(newUser)
 
-        // Storing the userID and Current lvl in the cache
+        // Storing the userID  (and Current lvl in the cache)->not anymore /!\
         val sharedPreferences = getSharedPreferences(USER_PREF, MODE_PRIVATE)
-        sharedPreferences.edit().putString(USER_ID, userID).apply()
-        sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
+        sharedPreferences.edit().putString(USER_ID, fbUserID).apply()
     }
 }
