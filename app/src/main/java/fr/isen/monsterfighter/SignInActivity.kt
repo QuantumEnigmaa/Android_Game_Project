@@ -41,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         // If the user has an account and wants to sign in
-        signInInputsArray = arrayOf(binding.accountLoginUsername, binding.accountLoginPassword)
+        signInInputsArray = arrayOf(binding.accountLoginEmail, binding.accountLoginPassword)
         binding.accountLoginButton.setOnClickListener {
             singInUser()
         }
@@ -69,7 +69,7 @@ class SignInActivity : AppCompatActivity() {
     private fun notEmpty(): Boolean = signInUsername.isNotEmpty() && signInPassword.isNotEmpty()
 
     private fun singInUser() {
-        signInUsername = binding.accountLoginUsername.text.toString().trim()
+        signInUsername = binding.accountLoginEmail.text.toString().trim()
         signInPassword = binding.accountLoginPassword.text.toString().trim()
 
         if (notEmpty()) {
