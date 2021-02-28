@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MonsterFighter">
         <activity android:name=".MonsterRecapActivity"></activity>
-        <activity android:name=".MonsterCreationActivity" />
+        <activity android:name=".MonsterCrea.MonsterCreationActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".GameSelectorActivity" />
         <activity android:name=".ResetPasswordActivity" />

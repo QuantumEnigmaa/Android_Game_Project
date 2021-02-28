@@ -41,4 +41,6 @@
     <string name="slots">Emplacements</string>
     <string name="slots_max">20</string>
     <string name="slash">/</string>
+    <string name="delete">del</string>
+    <string name="newP">New Part</string>
 </resources>
