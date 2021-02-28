@@ -79,7 +79,6 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(Intent(this, HomeActivity::class.java))
                         toast("Vous êtes authentifié !")
                         finish()
-                        refreshSharedPref()
                     } else {
                         toast("Erreur d'authentification")
                     }
@@ -91,13 +90,5 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun refreshSharedPref(){
-        val fbUserID = firebaseAuth.currentUser?.uid.toString()
-        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
-        sharedPreferences.edit().putString(RegisterActivity.USER_ID, fbUserID).apply()
-        //TODO was it usefull to put lvl in cache?
-        //sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
     }
 }
