@@ -43,4 +43,7 @@
     <string name="slash">/</string>
     <string name="delete">del</string>
     <string name="newP">New Part</string>
+    <string name="newM">New Monster</string>
+    <string name="SwapM">Swap</string>
+    <string name="DetailM">Detail</string>
 </resources>

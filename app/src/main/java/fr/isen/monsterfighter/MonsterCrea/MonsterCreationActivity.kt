@@ -1,19 +1,19 @@
 package fr.isen.monsterfighter.MonsterCrea
 
 //import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
-import android.database.DataSetObserver
+import android.R.attr.entries
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import fr.isen.monsterfighter.Extensions.Extensions.toast
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.RegisterActivity
@@ -22,6 +22,7 @@ import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.partsRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
+
 //TODO Clean this messy code
 class MonsterCreationActivity : AppCompatActivity() {
 
@@ -29,6 +30,7 @@ class MonsterCreationActivity : AppCompatActivity() {
 
     private lateinit var availablePartsList: ArrayList<Parts>
     private lateinit var partsListUsed: ArrayList<Parts>
+    private lateinit var adapter: PartAdapter
 
     private val MAX_SLOTS = 20
 
@@ -37,24 +39,17 @@ class MonsterCreationActivity : AppCompatActivity() {
         binding = ActivityMonsterCreationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Fetching monster parts data from Firebase
-        partsListUsed = ArrayList()
-        availablePartsList = ArrayList()
-
         //TODO where did monsterCreationSeparator go?
 
+        // Fetching monster parts data from Firebase
+        partsListUsed = ArrayList() // <= is it of any use?
+        availablePartsList = ArrayList() // <= is it of any use?
 
-        /*
-        val adapter = PartAdapter(partsListUsed, availablePartsList)
+        loadParts()
+        adapter = PartAdapter(partsListUsed, availablePartsList)
         binding.partsRecycler.layoutManager = LinearLayoutManager(applicationContext)
         binding.partsRecycler.adapter = adapter
 
-        availablePartsList = loadParts(adapter, partsListUsed)
-        */
-        //TODO add loading for loadParts to finish
-        val adapter = loadParts(availablePartsList, partsListUsed)
-        binding.partsRecycler.layoutManager = LinearLayoutManager(applicationContext)
-        binding.partsRecycler.adapter = adapter
 
         //TODO worship function best function
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
@@ -63,7 +58,6 @@ class MonsterCreationActivity : AppCompatActivity() {
                 super.onChanged()
             }
         })
-
 
         initUI()
 
@@ -79,8 +73,6 @@ class MonsterCreationActivity : AppCompatActivity() {
                 }
         )
 
-
-
         // Handling buttons
         binding.monsterCreationSave.setOnClickListener {
             uploadMonster(availablePartsList, partsListUsed)
@@ -91,6 +83,10 @@ class MonsterCreationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
+    }
     private fun setTextColor(s: CharSequence?) {
         if (s.toString().toInt() > MAX_SLOTS) {
             binding.monsterCreationCurrentSlots.setTextColor(Color.RED)
@@ -139,7 +135,7 @@ class MonsterCreationActivity : AppCompatActivity() {
 
     }
 
-    private fun loadParts(availablePartsList: ArrayList<Parts>, partsListUsed:  ArrayList<Parts>): PartAdapter {
+    private fun loadParts() {
         partsRef.addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -147,14 +143,13 @@ class MonsterCreationActivity : AppCompatActivity() {
                             availablePartsList.add(i.getValue(Parts::class.java)!!)
                         }
                         partsListUsed.add(availablePartsList[0])
+                        adapter.notifyDataSetChanged()
                     }
                     override fun onCancelled(error: DatabaseError) {
                         Log.i("parts loading error", error.toString())
                     }
                 }
         )
-
-        return PartAdapter(partsListUsed, availablePartsList)
     }
 
     fun getUserId(): String {
@@ -164,7 +159,6 @@ class MonsterCreationActivity : AppCompatActivity() {
     }
 
     private fun createMonster(availablePartsList: ArrayList<Parts>, partsListUsed:  ArrayList<Parts>): Monster {
-        //TODO TRANSFORM PARTSMONSTER INTO AN ID LIST INSTEAD OF A PARTS LIST FOR MORE EFFICIENT DATABASE USAGE
         val partsMonster: ArrayList<Int> = ArrayList()
         for (i in partsListUsed) {
             partsMonster.add(availablePartsList.indexOf(i))

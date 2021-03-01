@@ -58,11 +58,10 @@ class PartAdapter (private val entries: MutableList<Parts>, private val availabl
 
     class PartViewHolder(partBinding: NewPartCellBinding): RecyclerView.ViewHolder(partBinding.root){
         //TODO de la mise en page ds le xml
-        val monstercreationimg: ImageView = partBinding.monsterCreationImg
+        val monstercreationimg: ImageView = partBinding.monsterRecapImg
         val delbutton: TextView = partBinding.delButton
         val monstercreationprevious: TextView = partBinding.monsterCreationPrevious
         val monstercreationnext: TextView = partBinding.monsterCreationNext
         val partname: TextView = partBinding.partName
     }
-
 }
