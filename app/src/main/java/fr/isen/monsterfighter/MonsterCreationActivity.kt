@@ -27,6 +27,8 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMonsterCreationBinding
 
     private lateinit var partsList: ArrayList<Parts>
+    private lateinit var images: ArrayList<ImageView>
+    private lateinit var imagePositionList: ArrayList<Int>
 
     companion object {
         private const val MAX_SLOTS = 20
@@ -37,10 +39,10 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityMonsterCreationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i("AAAAH", "A L'AIDE")
-
         // Fetching monster parts data from Firebase
-        val images: ArrayList<ImageView> = createListImages()
+        images = createListImages()
+        imagePositionList = ArrayList(4)
+        Log.i("imagePositionList", imagePositionList.toString())
         partsList = loadParts(images)
 
         binding.monsterCreationCurrentSlots.addTextChangedListener(
@@ -76,9 +78,9 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
             binding.monsterCreationSlash.setTextColor(Color.RED)
             binding.monsterCreationMaxSlots.setTextColor(Color.RED)
         } else {
-            binding.monsterCreationCurrentSlots.setTextColor(Color.BLACK)
-            binding.monsterCreationSlash.setTextColor(Color.BLACK)
-            binding.monsterCreationMaxSlots.setTextColor(Color.BLACK)
+            binding.monsterCreationCurrentSlots.setTextColor(Color.GRAY)
+            binding.monsterCreationSlash.setTextColor(Color.GRAY)
+            binding.monsterCreationMaxSlots.setTextColor(Color.GRAY)
         }
     }
 
@@ -99,8 +101,8 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
         var hp = 0
         var slot = 0
         while (i < listImage.size) {
-            Log.i("HP", listParts[i].pHP.toString())
-            Picasso.get().load(listParts[i].pImgUrl).placeholder(R.drawable.searching).into(listImage.get(i))
+            Picasso.get().load(listParts[i].pImgUrl).placeholder(R.drawable.searching).into(listImage[i])
+            imagePositionList.add(i)
             strength += listParts[i].pStrength
             dext += listParts[i].pDext
             intel += listParts[i].pIntel
@@ -138,14 +140,14 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             //TODO ADD METHODS TO SWITCH IMAGES
-            binding.monsterCreationNext1 -> {  }
-            binding.monsterCreationNext2 -> {  }
-            binding.monsterCreationNext3 -> {  }
-            binding.monsterCreationNext4 -> {  }
-            binding.monsterCreationPrevious1 -> {  }
-            binding.monsterCreationPrevious2 -> {  }
-            binding.monsterCreationPrevious3 -> {  }
-            binding.monsterCreationPrevious4 -> {  }
+            binding.monsterCreationNext1 -> { changeImage(0, true) }
+            binding.monsterCreationNext2 -> { changeImage(1, true) }
+            binding.monsterCreationNext3 -> { changeImage(2, true) }
+            binding.monsterCreationNext4 -> { changeImage(3, true) }
+            binding.monsterCreationPrevious1 -> { changeImage(0, false) }
+            binding.monsterCreationPrevious2 -> { changeImage(1, false) }
+            binding.monsterCreationPrevious3 -> { changeImage(2, false) }
+            binding.monsterCreationPrevious4 -> { changeImage(3, false) }
             binding.monsterCreationSave -> {
                 val slots: String = binding.monsterCreationCurrentSlots.text.toString()
                 if (slots.toInt() <= MAX_SLOTS && binding.monsterCreationMonsterName.text.toString() != "") {
@@ -160,6 +162,37 @@ class MonsterCreationActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun changeImage(i: Int, next: Boolean) {
+        // Saving current stats values
+        val currentStrength = partsList[imagePositionList[i]].pStrength
+        val currentIntel = partsList[imagePositionList[i]].pIntel
+        val currentDext = partsList[imagePositionList[i]].pDext
+        val currentHP = partsList[imagePositionList[i]].pHP
+        val currentSlot = partsList[imagePositionList[i]].pSlot
+
+        // Updating Part position
+        if (imagePositionList[i] == (partsList.size - 1) && next) {
+            imagePositionList[i] = 0
+        } else if (imagePositionList[i] == 0 && !next) {
+            imagePositionList[i] = partsList.size - 1
+        } else {
+            if (next) imagePositionList[i] ++ else imagePositionList[i] --
+        }
+        Picasso.get().load(partsList[imagePositionList[i]].pImgUrl).into(images[i])
+
+        // Updating stats values
+        val newStrengthValue = binding.monsterCreationStatsStrengh.text.toString().toInt() - currentStrength + partsList[imagePositionList[i]].pStrength
+        val newIntelValue = binding.monsterCreationStatsIntel.text.toString().toInt() - currentIntel + partsList[imagePositionList[i]].pIntel
+        val newDextValue = binding.monsterCreationStatsDext.text.toString().toInt() - currentDext + partsList[imagePositionList[i]].pDext
+        val newHpValue = binding.monsterCreationStatsHp.text.toString().toInt() - currentHP + partsList[imagePositionList[i]].pHP
+        val newSlotValue = binding.monsterCreationCurrentSlots.text.toString().toInt() - currentSlot + partsList[imagePositionList[i]].pSlot
+        binding.monsterCreationStatsStrengh.text  = newStrengthValue.toString()
+        binding.monsterCreationStatsIntel.text = newIntelValue.toString()
+        binding.monsterCreationStatsDext.text = newDextValue.toString()
+        binding.monsterCreationStatsHp.text = newHpValue.toString()
+        binding.monsterCreationCurrentSlots.text = newSlotValue.toString()
     }
 
     fun getUserId(): String {
