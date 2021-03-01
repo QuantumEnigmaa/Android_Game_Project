@@ -28,6 +28,7 @@ class MonsterRecapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMonsterRecapBinding
 
     private lateinit var availableMonsterList: ArrayList<Monster>
+    private lateinit var adapter: RecapAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class MonsterRecapActivity : AppCompatActivity() {
         availableMonsterList = ArrayList()
 
 
-        val adapter = loadMonsters()
+        loadMonsters()
         //TODO same as MonsterCreaActi
         binding.RecapRecycler.layoutManager = LinearLayoutManager(applicationContext)
         binding.RecapRecycler.adapter = adapter
@@ -48,12 +49,13 @@ class MonsterRecapActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadMonsters(): RecapAdapter{
-        FirebaseUtils.userRef.child(getUserId()).addValueEventListener(
+    private fun loadMonsters(){
+        var availableMonsterListID = ArrayList<String>()
+        FirebaseUtils.userRef.child(getUserId()).child("listMonsters").addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         for (i in snapshot.children) {
-                            availableMonsterList.add(i.getValue(Monster::class.java)!!)
+                            availableMonsterListID.add(i.key.toString())
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
@@ -61,7 +63,7 @@ class MonsterRecapActivity : AppCompatActivity() {
                     }
                 }
         )
-        return RecapAdapter(availableMonsterList)
+        adapter = RecapAdapter(availableMonsterList)
     }
 
     fun getUserId(): String {

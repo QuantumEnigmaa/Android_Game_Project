@@ -163,6 +163,7 @@ class MonsterCreationActivity : AppCompatActivity() {
         for (i in partsListUsed) {
             partsMonster.add(availablePartsList.indexOf(i))
         }
+        //TODO small pb after typing name and interaction with adapter's buttons
         return Monster(binding.monsterCreationStatsHp.text.toString().toInt(), partsMonster,
                 binding.monsterCreationMonsterName.text.toString(),
                 binding.monsterCreationStatsStrengh.text.toString().toInt(),
@@ -177,8 +178,7 @@ class MonsterCreationActivity : AppCompatActivity() {
         monsterRef.child(monsterId).setValue(monster)
 
         // Adding monster to user's monster list
-        val monsterList: ArrayList<Monster> = ArrayList()
-        monsterList.add(monster)
-        userRef.child(getUserId()).child("listMonsters").setValue(monsterList)
+        userRef.child(getUserId()).child("listMonsters").child(monsterId).setValue(monster)
+        //oui on ecrit 2 fois le monstre mais l'un servira au interration en multi et l'autre de blueprint pr raz apres cbt
     }
 }
