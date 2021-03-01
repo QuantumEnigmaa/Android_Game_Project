@@ -56,7 +56,7 @@ class MonsterCreationActivity : AppCompatActivity() {
         binding.partsRecycler.layoutManager = LinearLayoutManager(applicationContext)
         binding.partsRecycler.adapter = adapter
 
-        //TODO worship function the best function
+        //TODO worship function best function
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
             override fun onChanged() {
                 updateUI()

@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.databinding.NewPartCellBinding
 
+//TODO Change file name and creat "party" package for crea and recap monsters
+
 class PartAdapter (private val entries: MutableList<Parts>, private val availablePartsList: ArrayList<Parts>): RecyclerView.Adapter<PartAdapter.PartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartViewHolder {
