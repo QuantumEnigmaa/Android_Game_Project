@@ -24,66 +24,58 @@
 
             <TextView
 
-                android:id="@+id/monsterCreationNext"
+                android:id="@+id/monsterDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:background="@drawable/ic_right_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/delButton"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/DetailM"
                 app:layout_constraintStart_toEndOf="@+id/monsterRecapImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/monsterCreationPrevious"
+                android:id="@+id/monsterSwap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-
-                android:background="@drawable/ic_right_arrow"
-                android:rotation="-180"
+                android:text="@string/SwapM"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/monsterRecapImg"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="@+id/monsterDelete"
+                app:layout_constraintStart_toEndOf="@+id/monsterDetail"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.525" />
 
             <ImageView
                 android:id="@+id/monsterRecapImg"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:contentDescription="@string/parts_description"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/monsterCreationNext"
-                app:layout_constraintStart_toEndOf="@+id/monsterCreationPrevious"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_bias="0.421"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/delButton"
+                android:id="@+id/monsterDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="36dp"
                 android:text="@string/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/monsterCreationNext"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.525" />
 
             <TextView
-                android:id="@+id/partName"
+                android:id="@+id/monsterName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
-                android:text="TextView"
+                android:text="text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

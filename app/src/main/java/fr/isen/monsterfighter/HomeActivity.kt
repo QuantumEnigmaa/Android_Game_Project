@@ -36,9 +36,9 @@ class HomeActivity : AppCompatActivity() {
         val intentCreat = Intent(this, MonsterCreationActivity::class.java)
         val intentCheck = Intent(this, MonsterRecapActivity::class.java)
         binding.homePartyButton.setOnClickListener {
-
-
-            //TODO Better getUserId (import from utils or model)
+            //start either recap or create monster depending on whether listMonster already exist
+            // (<=> some monster were already created)
+            //TODO make better getUserId with import from utils or model
             userRef.child(getUserId()).child("listMonsters").addValueEventListener(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -51,7 +51,6 @@ class HomeActivity : AppCompatActivity() {
             )
         }
     }
-
     //TODO put in model or utils cuz code duplication
     private fun getUserId(): String {
         // accessing cache
