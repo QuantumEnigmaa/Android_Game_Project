@@ -13,33 +13,26 @@
         tools:context=".MonsterCrea.MonsterCreationActivity">
 
 
-
-        <TextView
+        <View
             android:id="@+id/monsterCreationSeparator"
-            android:layout_width="wrap_content"
+            android:layout_width="1dp"
             android:layout_height="280dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="150dp"
-            android:layout_marginBottom="24dp"
-            android:background="@drawable/simple_line"
-            android:rotation="+90"
+            android:layout_marginEnd="32dp"
+            android:background="#FF000000"
             app:layout_constraintBottom_toTopOf="@+id/monsterCreationStats"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout"
-            app:layout_constraintVertical_bias="0.112" />
+            app:layout_constraintEnd_toStartOf="@+id/monsterNewPart"
+            app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout" />
 
         <TextView
             android:id="@+id/monsterCreationStats"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="341dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="430dp"
             android:background="@drawable/border_rectangle"
-            android:padding="60dp"
-            app:layout_constraintBottom_toTopOf="@+id/monsterCreationSave"
+            android:padding="82dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/monsterCreationStatsTitle"
@@ -56,11 +49,13 @@
             android:id="@+id/monsterCreationSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monsterCreationStats"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/monsterCreationNameLayout"
@@ -78,8 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:inputType="textPersonName"
-                android:hint="@string/monster_name" />
+                android:hint="@string/monster_name"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -129,7 +124,6 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.411"
             app:layout_constraintStart_toEndOf="@+id/monsterCreationSeparator"
             app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout" />
 
@@ -206,7 +200,7 @@
             android:layout_height="280dp"
             app:layout_constraintBottom_toTopOf="@+id/monsterCreationStats"
             app:layout_constraintEnd_toStartOf="@+id/monsterCreationSeparator"
-            app:layout_constraintHorizontal_bias="0.608"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/monsterCreationNameLayout"
             app:layout_constraintVertical_bias="0.425" />
@@ -215,11 +209,12 @@
             android:id="@+id/monsterNewPart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
             android:text="@string/newP"
             app:layout_constraintBottom_toTopOf="@+id/monsterCreationStats"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/monsterCreationSeparator"
-            app:layout_constraintTop_toTopOf="@+id/monsterCreationSlash" />
+            app:layout_constraintTop_toTopOf="@+id/monsterCreationSlash"
+            app:layout_constraintVertical_bias="0.468" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
