@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import fr.isen.monsterfighter.Extensions.Extensions.toast
+import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.databinding.ActivityRegisterBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.firebaseAuth
@@ -84,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createUser() {
         val fbUserID = firebaseAuth.currentUser?.uid.toString()
-        val newUser = User(userName, "", 0, ArrayList(), ArrayList())
+        val newUser = User(userName, "", 0, HashMap(), ArrayList())
         userRef.child(fbUserID).setValue(newUser)
 
         // Storing the userID  (and Current lvl in the cache)->not anymore /!\

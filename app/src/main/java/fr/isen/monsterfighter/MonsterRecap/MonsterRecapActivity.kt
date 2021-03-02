@@ -19,14 +19,17 @@ import fr.isen.monsterfighter.R
 import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.SignInActivity
 import fr.isen.monsterfighter.databinding.ActivityMonsterRecapBinding
-import fr.isen.monsterfighter.utils.FirebaseUtils
 import fr.isen.monsterfighter.MonsterRecap.RecapAdapter
+import fr.isen.monsterfighter.utils.FirebaseUtils
+import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
+import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 
 class MonsterRecapActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMonsterRecapBinding
 
+    private lateinit var availablePartsList: ArrayList<Parts>
     private lateinit var availableMonsterList: ArrayList<Monster>
     private lateinit var adapter: RecapAdapter
 
@@ -36,13 +39,14 @@ class MonsterRecapActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         availableMonsterList = ArrayList()
+        availablePartsList = ArrayList()
 
 
         loadMonsters()
-        //TODO same as MonsterCreaActi
+        loadParts() //<=en cache ou en utils
+        adapter = RecapAdapter(availableMonsterList, availablePartsList)
         binding.RecapRecycler.layoutManager = LinearLayoutManager(applicationContext)
         binding.RecapRecycler.adapter = adapter
-        adapter.notifyDataSetChanged()
 
         binding.RecapNew.setOnClickListener {
             startActivity(Intent(this, MonsterCreationActivity::class.java))
@@ -50,21 +54,38 @@ class MonsterRecapActivity : AppCompatActivity() {
     }
 
     private fun loadMonsters(){
-        var availableMonsterListID = ArrayList<String>()
-        FirebaseUtils.userRef.child(getUserId()).child("listMonsters").addValueEventListener(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (i in snapshot.children) {
-                            availableMonsterListID.add(i.key.toString())
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.i("parts loading error", error.toString())
+        userRef.child(getUserId()).child("listMonsters").addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (i in snapshot.children) {
+                        availableMonsterList.add(i.getValue(Monster::class.java)!!)
+                        adapter.notifyDataSetChanged()
                     }
                 }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.i("parts loading error", error.toString())
+                }
+            }
         )
-        adapter = RecapAdapter(availableMonsterList)
     }
+
+    //mmmhh le bon code duliqué
+    private fun loadParts() {
+        FirebaseUtils.partsRef.addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (i in snapshot.children) {
+                        availablePartsList.add(i.getValue(Parts::class.java)!!)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.i("parts loading error", error.toString())
+                }
+            }
+        )
+    }
+
 
     fun getUserId(): String {
         // accessing cache

@@ -1,9 +1,11 @@
 package fr.isen.monsterfighter
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import fr.isen.monsterfighter.Extensions.Extensions.dialog
+import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
 import fr.isen.monsterfighter.databinding.ActivityGameSelectorBinding
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -25,6 +27,7 @@ class GameSelectorActivity : AppCompatActivity() {
 
         // Multiplayer button
         binding.selectorMutliplayer.setOnClickListener{
+
             MainScope().launch {
                 binding.selectorAnimation.setAnimation("battleAnimation.json")
                 binding.selectorAnimation.playAnimation()
@@ -32,6 +35,8 @@ class GameSelectorActivity : AppCompatActivity() {
                 binding.selectorAnimation.cancelAnimation()
                 binding.selectorAnimation.visibility = View.GONE
             }
+            val intentCreat = Intent(this,FightActivity::class.java)
+            startActivity(intentCreat)
         }
 
     }
