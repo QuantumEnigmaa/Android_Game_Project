@@ -101,4 +101,5 @@ class SignInActivity : AppCompatActivity() {
         // +opti put parts with img in cache and use it in recyclerview (in place of ", private val availablePartsList: ArrayList<Parts>")
         //sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
     }
+
 }
