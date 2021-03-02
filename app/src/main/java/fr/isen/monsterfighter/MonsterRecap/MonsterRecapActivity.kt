@@ -50,6 +50,7 @@ class MonsterRecapActivity : AppCompatActivity() {
 
         binding.RecapNew.setOnClickListener {
             startActivity(Intent(this, MonsterCreationActivity::class.java))
+            finish()
         }
     }
 
