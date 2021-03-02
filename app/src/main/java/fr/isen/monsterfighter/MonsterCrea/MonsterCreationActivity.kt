@@ -42,8 +42,8 @@ class MonsterCreationActivity : AppCompatActivity() {
         //TODO where did monsterCreationSeparator go?
 
         // Fetching monster parts data from Firebase
-        partsListUsed = ArrayList() // <= is it of any use?
-        availablePartsList = ArrayList() // <= is it of any use?
+        partsListUsed = ArrayList()
+        availablePartsList = ArrayList()
 
         loadParts()
         adapter = PartAdapter(partsListUsed, availablePartsList)
@@ -178,7 +178,7 @@ class MonsterCreationActivity : AppCompatActivity() {
         monsterRef.child(monsterId).setValue(monster)
 
         // Adding monster to user's monster list
+        //TODO prevent creating when slot above limite
         userRef.child(getUserId()).child("listMonsters").child(monsterId).setValue(monster)
-        //oui on ecrit 2 fois le monstre mais l'un servira au interration en multi et l'autre de blueprint pr raz apres cbt
     }
 }

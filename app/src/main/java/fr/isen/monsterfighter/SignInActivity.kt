@@ -98,6 +98,7 @@ class SignInActivity : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
         sharedPreferences.edit().putString(RegisterActivity.USER_ID, fbUserID).apply()
         //TODO was it usefull to put lvl in cache?
+        // +opti put parts with img in cache and use it in recyclerview (in place of ", private val availablePartsList: ArrayList<Parts>")
         //sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
     }
 }
