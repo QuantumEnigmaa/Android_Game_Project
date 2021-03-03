@@ -14,7 +14,7 @@ import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.databinding.RecapCellBinding
 
 
-class RecapAdapter (private val entries: MutableList<Monster>, private val availablePartsList: ArrayList<Parts>): RecyclerView.Adapter<RecapAdapter.RecapViewHolder>() {
+class RecapAdapter (private val entries: ArrayList<Monster>, private val availablePartsList: ArrayList<Parts>): RecyclerView.Adapter<RecapAdapter.RecapViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecapViewHolder {
         return RecapViewHolder(RecapCellBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -22,16 +22,15 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
 
     override fun onBindViewHolder(holder: RecapViewHolder, position: Int) {
 
-        //TODO Color For 1st (mb in viewholder tho)
+        //TODO Color For used monster (change with sav and need to upload to user profil)
 
-        //TODO First Img
         Picasso.get().load(availablePartsList[entries[position].mLstPartsId[0]].pImgUrl).into(holder.monsterimg)
-
-        //TODO name
         holder.monstername.text = entries[position].mName
 
+
         holder.delbutton.setOnClickListener{
-            //TODO delbutton
+            entries.removeAt(position)
+            notifyDataSetChanged()
         }
 
         holder.monsterswap.setOnClickListener{
