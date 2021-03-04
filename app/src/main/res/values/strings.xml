@@ -40,4 +40,5 @@
     <string name="slots">Emplacements</string>
     <string name="slots_max">20</string>
     <string name="slash">/</string>
+    <string name="monster_members">Membres</string>
 </resources>

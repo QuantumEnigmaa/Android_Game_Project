@@ -6,4 +6,115 @@
     android:layout_height="match_parent"
     tools:context=".MonsterRecapActivity">
 
+    <TextView
+        android:id="@+id/monsterRecapStatsHp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/profile_lvlNumber"
+        app:layout_constraintStart_toEndOf="@+id/monsterRecapHP"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapDext" />
+
+    <TextView
+        android:id="@+id/monsterRecapStatsDext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/profile_lvlNumber"
+        app:layout_constraintStart_toEndOf="@+id/monsterRecapDext"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapStatsIntel" />
+
+    <TextView
+        android:id="@+id/monsterRecapStatsIntel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/profile_lvlNumber"
+        app:layout_constraintStart_toEndOf="@+id/monsterRecapIntel"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapStatsStrengh" />
+
+    <TextView
+        android:id="@+id/monsterRecapStatsStrengh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/profile_lvlNumber"
+        app:layout_constraintStart_toEndOf="@+id/monsterRecapStrength"
+        app:layout_constraintTop_toBottomOf="@+id/statsTitre" />
+
+    <TextView
+        android:id="@+id/monsterRecapHP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/statistics_HP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapDext" />
+
+    <TextView
+        android:id="@+id/monsterRecapDext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/statistics_Dext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapIntel" />
+
+    <TextView
+        android:id="@+id/monsterRecapIntel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/statistics_Intel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monsterRecapStrength" />
+
+    <TextView
+        android:id="@+id/monsterRecapStrength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/statistics_Strength"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statsTitre" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="@string/monster_name"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/membresTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/monster_members"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/statsTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/statistics_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
