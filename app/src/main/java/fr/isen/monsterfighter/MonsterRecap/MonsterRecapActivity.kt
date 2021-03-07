@@ -16,15 +16,14 @@ import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
-import fr.isen.monsterfighter.MonsterCrea.PartAdapter
 import fr.isen.monsterfighter.R
 import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.SignInActivity
 import fr.isen.monsterfighter.databinding.ActivityMonsterRecapBinding
-import fr.isen.monsterfighter.MonsterRecap.RecapAdapter
 import fr.isen.monsterfighter.utils.FirebaseUtils
 import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
+import kotlin.reflect.typeOf
 
 
 class MonsterRecapActivity : AppCompatActivity() {
@@ -49,8 +48,8 @@ class MonsterRecapActivity : AppCompatActivity() {
         loadMonsters()
         loadParts() //TODO <=en cache ou en utils
         adapter = RecapAdapter(availableMonsterList, availablePartsList)
-        binding.RecapRecycler.layoutManager = LinearLayoutManager(applicationContext)
-        binding.RecapRecycler.adapter = adapter
+        binding.recapRecycler.layoutManager = LinearLayoutManager(applicationContext)
+        binding.recapRecycler.adapter = adapter
 
         binding.RecapNew.setOnClickListener {
             startActivity(Intent(this, MonsterCreationActivity::class.java))
@@ -59,14 +58,15 @@ class MonsterRecapActivity : AppCompatActivity() {
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
             override fun onChanged() {
-                Log.wtf("dataChange", availableMonsterList.toString())
                 for(i in availableMonsterMap){
                     if(!availableMonsterList.contains(i.value)){
-                        monsterRef.child(i.key).removeValue()
-                        availableMonsterMap.remove(i.key)
+                        Log.wtf("if", "we in boi") // but it not be gud...
+                        //monsterRef.child(i.key).removeValue()
+                        //availableMonsterMap.remove(i.key)
                     }
                 }
-                userRef.child(getUserId()).child("listMonsters").setValue(availableMonsterMap)
+                //userRef.child(getUserId()).child("listMonsters").setValue(availableMonsterMap)
+                Log.wtf("dataChange", availableMonsterList.toString())
                 super.onChanged()
             }
         })
@@ -76,9 +76,10 @@ class MonsterRecapActivity : AppCompatActivity() {
         userRef.child(getUserId()).child("listMonsters").addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    for (i in snapshot.children) {
+                        availableMonsterList.add(i.getValue(Monster::class.java)!!)
+                    }
                     availableMonsterMap = snapshot.value as HashMap<String, Monster>
-                    availableMonsterList = ArrayList(availableMonsterMap.values)
-                    Log.wtf("recapActi", availableMonsterList.toString())
                     adapter.notifyDataSetChanged()
                 }
                 override fun onCancelled(error: DatabaseError) {

@@ -14,7 +14,7 @@ import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.databinding.RecapCellBinding
 
 
-class RecapAdapter (private val entries: ArrayList<Monster>, private val availablePartsList: ArrayList<Parts>): RecyclerView.Adapter<RecapAdapter.RecapViewHolder>() {
+class RecapAdapter (private val entries: MutableList<Monster>, private val availablePartsList: ArrayList<Parts>): RecyclerView.Adapter<RecapAdapter.RecapViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecapViewHolder {
         return RecapViewHolder(RecapCellBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -35,10 +35,12 @@ class RecapAdapter (private val entries: ArrayList<Monster>, private val availab
 
         holder.monsterswap.setOnClickListener{
             //TODO swap button
+            notifyDataSetChanged()
         }
 
         holder.monsterdetail.setOnClickListener{
             //TODO detail button
+            notifyDataSetChanged()
         }
     }
 
