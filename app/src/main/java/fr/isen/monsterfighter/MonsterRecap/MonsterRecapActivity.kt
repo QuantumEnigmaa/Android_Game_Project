@@ -59,8 +59,11 @@ class MonsterRecapActivity : AppCompatActivity() {
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
             override fun onChanged() {
                 for(i in availableMonsterMap){
-                    if(!availableMonsterList.contains(i.value)){
+                    if(availableMonsterList.contains(i.value)){
                         Log.wtf("if", "we in boi") // but it not be gud...
+
+                        Log.wtf("if", i.key)
+
                         //monsterRef.child(i.key).removeValue()
                         //availableMonsterMap.remove(i.key)
                     }
