@@ -1,7 +1,7 @@
 package fr.isen.monsterfighter.MonsterCrea
 
-//import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
 import android.R.attr.entries
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import fr.isen.monsterfighter.Extensions.Extensions.dialog
+import fr.isen.monsterfighter.HomeActivity
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
+import fr.isen.monsterfighter.MonsterRecap.MonsterRecapActivity
 import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.databinding.ActivityMonsterCreationBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
@@ -42,8 +45,8 @@ class MonsterCreationActivity : AppCompatActivity() {
         //TODO where did monsterCreationSeparator go?
 
         // Fetching monster parts data from Firebase
-        partsListUsed = ArrayList() // <= is it of any use?
-        availablePartsList = ArrayList() // <= is it of any use?
+        partsListUsed = ArrayList()
+        availablePartsList = ArrayList()
 
         loadParts()
         adapter = PartAdapter(partsListUsed, availablePartsList)
@@ -75,7 +78,18 @@ class MonsterCreationActivity : AppCompatActivity() {
 
         // Handling buttons
         binding.monsterCreationSave.setOnClickListener {
-            uploadMonster(availablePartsList, partsListUsed)
+            val slots: String = binding.monsterCreationCurrentSlots.text.toString()
+            if (slots.toInt() <= MAX_SLOTS && binding.monsterCreationMonsterName.text.toString() != "") {
+                uploadMonster(availablePartsList, partsListUsed)
+                startActivity(Intent(this, MonsterRecapActivity::class.java))
+                finish()
+            } else {
+                if (slots.toInt() > MAX_SLOTS)
+                    dialog("Nombre maximum d'emplacement dépassé !", "Attention !", true) {}
+                else
+                    dialog("Donnez un nom à votre monstre !", "Attention !", true) {}
+            }
+
         }
         binding.monsterNewPart.setOnClickListener {
             partsListUsed.add(availablePartsList[0])
@@ -83,10 +97,6 @@ class MonsterCreationActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        adapter.notifyDataSetChanged()
-    }
     private fun setTextColor(s: CharSequence?) {
         if (s.toString().toInt() > MAX_SLOTS) {
             binding.monsterCreationCurrentSlots.setTextColor(Color.RED)
@@ -178,7 +188,7 @@ class MonsterCreationActivity : AppCompatActivity() {
         monsterRef.child(monsterId).setValue(monster)
 
         // Adding monster to user's monster list
+        //TODO prevent creating when slot above limite
         userRef.child(getUserId()).child("listMonsters").child(monsterId).setValue(monster)
-        //oui on ecrit 2 fois le monstre mais l'un servira au interration en multi et l'autre de blueprint pr raz apres cbt
     }
 }

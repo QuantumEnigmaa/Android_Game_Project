@@ -24,6 +24,7 @@
     <string name="home_profilButton">Profil</string>
     <string name="home_teamButton">Mes monstres</string>
     <string name="home_gameButton">Jouer</string>
+    <string name="wallpaper_desc">Image de fond</string>
     <string name="gameSelector_solo">Donjon</string>
     <string name="gameSelector_multi">Multijoueur</string>
     <string name="profile_imageDescription">Image de profil</string>
