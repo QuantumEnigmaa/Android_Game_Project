@@ -52,7 +52,49 @@ class FightActivity : AppCompatActivity() {
 
         binding.attack1.setOnClickListener(){
             if(lobbysList[lobbyNumber-1].lTurn==player){
-                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-10)
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mstrength*0.2)
+                if(player==1){
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
+                }
+                else{
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(1)
+                }
+
+            }
+
+        }
+
+        binding.attack2.setOnClickListener(){
+            if(lobbysList[lobbyNumber-1].lTurn==player){
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mintel*0.2)
+                if(player==1){
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
+                }
+                else{
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(1)
+                }
+
+            }
+
+        }
+
+        binding.attack3.setOnClickListener(){
+            if(lobbysList[lobbyNumber-1].lTurn==player){
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mdext*0.2)
+                if(player==1){
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
+                }
+                else{
+                    lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(1)
+                }
+
+            }
+
+        }
+
+        binding.attack4.setOnClickListener(){
+            if(lobbysList[lobbyNumber-1].lTurn==player){
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(mymonsterList[0].mcurrentHp+mymonsterList[0].mintel*0.1)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
                 }
@@ -121,6 +163,7 @@ class FightActivity : AppCompatActivity() {
             if (lobbysList[index].lActiveStatus == 1) {
                 inALobby=true
                 lobbyNumber=index+1
+                Log.d("lobbynumber",lobbyNumber.toString())
                 lobbysList[index].lPlayer2Id= me
                 lobbyRef.child(lobbyNumber.toString()).child("lPlayer2Id").setValue(me)
                 lobbyRef.child(lobbyNumber.toString()).child("lActiveStatus").setValue(2)
@@ -133,6 +176,7 @@ class FightActivity : AppCompatActivity() {
                 if (lobbysList[index].lActiveStatus == 0) {
                     inALobby=true
                     lobbyNumber=index+1
+                    Log.d("lobbynumber",lobbyNumber.toString())
                     lobbysList[index].lPlayer1Id= me
                     lobbyRef.child(lobbyNumber.toString()).child("lActiveStatus").setValue(1)
                     lobbyRef.child(lobbyNumber.toString()).child("lPlayer1Id").setValue(me)
