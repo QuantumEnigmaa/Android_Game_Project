@@ -78,7 +78,11 @@ class MonsterRecapActivity : AppCompatActivity() {
     override fun onStop(){
         finish()
         super.onStop()
+    }
 
+    override fun onPause(){
+        finish()
+        super.onPause()
     }
 
     private fun loadMonsters(){
