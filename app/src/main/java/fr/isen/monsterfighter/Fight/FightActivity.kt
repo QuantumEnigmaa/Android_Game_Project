@@ -19,6 +19,7 @@ import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 class FightActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFightBinding
+
     private lateinit var lobbysList: ArrayList<Lobby>
     private lateinit var mymonsterList: ArrayList<Monster>
     private lateinit var mymonsterListKeys: ArrayList<String>
@@ -32,18 +33,23 @@ class FightActivity : AppCompatActivity() {
     private var lobbyFull:Boolean=false
     var player=0
     private var gameOver:Boolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFightBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         lobbysList= ArrayList()
         mymonsterList= ArrayList()
         mymonsterListKeys= ArrayList()
         ennemymonsterList= ArrayList()
         ennemymonsterListKeys= ArrayList()
+
         sharedPreferences= getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
         me= sharedPreferences.getString("id","0").toString()
+
         loadLobbys()
+
         binding.attack1.setOnClickListener(){
             if(lobbysList[0].lTurn==player){
                 userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-10)
@@ -221,8 +227,9 @@ class FightActivity : AppCompatActivity() {
                 if(player==1){
                     resetMonsters()
                     resetLobbys()
-                    finish()
                 }
+                startActivity(Intent(this, FightRecapActivity::class.java))
+                finish()
             }
         }
         else{
