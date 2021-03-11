@@ -22,24 +22,25 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
 
     override fun onBindViewHolder(holder: RecapViewHolder, position: Int) {
 
-        //TODO Color For 1st (mb in viewholder tho)
+        //TODO Color For used monster (change with sav and need to upload to user profil)
 
-        //TODO First Img
         Picasso.get().load(availablePartsList[entries[position].mLstPartsId[0]].pImgUrl).into(holder.monsterimg)
-
-        //TODO name
         holder.monstername.text = entries[position].mName
 
+
         holder.delbutton.setOnClickListener{
-            //TODO delbutton
+            entries.removeAt(position)
+            notifyDataSetChanged()
         }
 
         holder.monsterswap.setOnClickListener{
             //TODO swap button
+            notifyDataSetChanged()
         }
 
         holder.monsterdetail.setOnClickListener{
             //TODO detail button
+            notifyDataSetChanged()
         }
     }
 
