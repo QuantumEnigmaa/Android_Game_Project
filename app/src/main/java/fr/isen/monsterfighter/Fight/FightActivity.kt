@@ -1,28 +1,25 @@
-package fr.isen.monsterfighter
+package fr.isen.monsterfighter.Fight
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import fr.isen.monsterfighter.Model.Lobby
 import fr.isen.monsterfighter.Model.Monster
-import fr.isen.monsterfighter.Model.Parts
-import fr.isen.monsterfighter.Model.User
+import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.databinding.ActivityFightBinding
-import fr.isen.monsterfighter.databinding.ActivityRegisterBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils.lobbyRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class FightActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFightBinding
+
     private lateinit var lobbysList: ArrayList<Lobby>
     private lateinit var mymonsterList: ArrayList<Monster>
     private lateinit var mymonsterListKeys: ArrayList<String>
@@ -36,20 +33,25 @@ class FightActivity : AppCompatActivity() {
     private var lobbyFull:Boolean=false
     var player=0
     private var gameOver:Boolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFightBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         lobbysList= ArrayList()
         mymonsterList= ArrayList()
         mymonsterListKeys= ArrayList()
         ennemymonsterList= ArrayList()
         ennemymonsterListKeys= ArrayList()
+
         sharedPreferences= getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
         me= sharedPreferences.getString("id","0").toString()
+
         loadLobbys()
+
         binding.attack1.setOnClickListener(){
-            if(lobbysList[0].lTurn==player){
+            if(lobbysList[lobbyNumber-1].lTurn==player){
                 userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-10)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
@@ -63,15 +65,24 @@ class FightActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        resetLobbys()
+    }
+
     private fun resetMonsters() {
         monsterRef.addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        snapshot.children.firstOrNull { it.key.toString() == mymonsterListKeys[0] }?.let { it.getValue()
-                            userRef.child(me).child("listMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(it.child("mcurrentHp"))
+                        snapshot.children.firstOrNull { it.key.toString() == mymonsterListKeys[0] }?.let {
+                            it.getValue(Monster::class.java)?.let {
+                                userRef.child(me).child("listMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
+                            }
                         }
-                        snapshot.children.firstOrNull { it.key.toString() == ennemymonsterListKeys[0] }?.let { it.getValue()
-                            userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(it.child("mcurrentHp"))
+                        snapshot.children.firstOrNull { it.key.toString() == ennemymonsterListKeys[0] }?.let {
+                            it.getValue(Monster::class.java)?.let {
+                                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
+                            }
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
@@ -130,9 +141,7 @@ class FightActivity : AppCompatActivity() {
                 }
                 else {
                     index += 1
-                    if (index==1){
-                        inALobby=false
-                    }
+                    inALobby=false
                 }
             }
         }
@@ -143,7 +152,8 @@ class FightActivity : AppCompatActivity() {
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (!gameOver){
-                            snapshot.children.firstOrNull { it.key.toString() == me }?.let {it.getValue()
+                            snapshot.children.firstOrNull { it.key.toString() == me }?.let {
+                                it.getValue()
                                 it.children.firstOrNull{ it.key.toString()=="listMonsters"}?.let{
                                     mymonsterList.clear()
                                     for (i in it.children){
@@ -211,9 +221,9 @@ class FightActivity : AppCompatActivity() {
     private fun GameHandling(){
         if((ennemymonsterList.isNotEmpty()) && (mymonsterList.isNotEmpty())){
             updateStatsDisplay()
-            if((mymonsterList[0].mcurrentHp==0) || (ennemymonsterList[0].mcurrentHp==0)){
+            if((mymonsterList[0].mcurrentHp<=0) || (ennemymonsterList[0].mcurrentHp<=0)){
                 gameOver=true
-                if(mymonsterList[0].mcurrentHp==0){
+                if(mymonsterList[0].mcurrentHp<=0){
                     binding.fightLog.text="Perdu"
                 }
                 else{
@@ -223,6 +233,8 @@ class FightActivity : AppCompatActivity() {
                     resetMonsters()
                     resetLobbys()
                 }
+                startActivity(Intent(this, FightRecapActivity::class.java))
+                finish()
             }
         }
         else{
