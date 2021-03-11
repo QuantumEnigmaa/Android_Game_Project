@@ -24,8 +24,8 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
 
         //TODO Color For used monster (change with sav and need to upload to user profil)
 
-        Picasso.get().load(availablePartsList[entries[position].mLstPartsId[0]].pImgUrl).into(holder.monsterimg)
-        holder.monstername.text = entries[position].mName
+        Picasso.get().load(availablePartsList[entries[position].mlstPartsId[0]].pImgUrl).into(holder.monsterimg)
+        holder.monstername.text = entries[position].mname
 
 
         holder.delbutton.setOnClickListener{
