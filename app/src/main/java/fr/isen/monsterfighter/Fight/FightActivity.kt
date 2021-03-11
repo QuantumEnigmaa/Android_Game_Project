@@ -51,7 +51,7 @@ class FightActivity : AppCompatActivity() {
         loadLobbys()
 
         binding.attack1.setOnClickListener(){
-            if(lobbysList[0].lTurn==player){
+            if(lobbysList[lobbyNumber-1].lTurn==player){
                 userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-10)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
@@ -63,6 +63,11 @@ class FightActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        resetLobbys()
     }
 
     private fun resetMonsters() {

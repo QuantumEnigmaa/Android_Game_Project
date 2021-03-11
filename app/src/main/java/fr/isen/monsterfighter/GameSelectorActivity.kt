@@ -35,6 +35,7 @@ class GameSelectorActivity : AppCompatActivity() {
                 binding.selectorAnimation.cancelAnimation()
                 binding.selectorAnimation.visibility = View.GONE
                 startActivity(intentCreat)
+                finish()
             }
         }
 
