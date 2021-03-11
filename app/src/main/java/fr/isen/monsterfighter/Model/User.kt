@@ -4,12 +4,12 @@ class User {
     var userName: String? = null
     var profileImageUrl: String? = null
     var userLvl: Int = 0
-    var listMonsters: ArrayList<Monster> = ArrayList()
+    var listMonsters: HashMap<String, Monster> = HashMap()
     var listSelectedMonsters: ArrayList<Monster> = ArrayList()
 
     constructor() {}
 
-    constructor(name: String, imageUrl: String?, lvl: Int, monsterList: ArrayList<Monster>, currentMonsterList: ArrayList<Monster>) {
+    constructor(name: String, imageUrl: String?, lvl: Int, monsterList: HashMap<String, Monster>, currentMonsterList: ArrayList<Monster>) {
         this.userName = name
         this.profileImageUrl = imageUrl
         this.userLvl = lvl

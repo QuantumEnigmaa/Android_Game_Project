@@ -200,6 +200,10 @@ class FightActivity : AppCompatActivity() {
             }
         }
         else{
+            if(lobbysList[lobbyNumber-1].lTurn==0)
+            {
+                lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(1)
+            }
             GameHandling()
         }
     }
