@@ -1,6 +1,5 @@
 package fr.isen.monsterfighter.MonsterCrea
 
-//import fr.isen.monsterfighter.utils.FirebaseUtils.getUserId
 import android.R.attr.entries
 import android.content.Intent
 import android.graphics.Color

@@ -7,6 +7,7 @@ import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
 import fr.isen.monsterfighter.MonsterRecap.MonsterRecapActivity
 import fr.isen.monsterfighter.databinding.ActivityHomeBinding
@@ -38,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         binding.homePartyButton.setOnClickListener {
             //start either recap or create monster depending on whether listMonster already exist
             // (<=> some monster were already created)
-            //TODO make better getUserId with import from utils or model
             userRef.child(getUserId()).child("listMonsters").addValueEventListener(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -51,6 +51,7 @@ class HomeActivity : AppCompatActivity() {
             )
         }
     }
+
     //TODO put in model or utils cuz code duplication
     private fun getUserId(): String {
         // accessing cache
