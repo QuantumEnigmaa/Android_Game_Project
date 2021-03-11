@@ -75,6 +75,12 @@ class MonsterRecapActivity : AppCompatActivity() {
         })
     }
 
+    override fun onStop(){
+        finish()
+        super.onStop()
+
+    }
+
     private fun loadMonsters(){
         userRef.child(getUserId()).child("listMonsters").addValueEventListener(
             object : ValueEventListener {
