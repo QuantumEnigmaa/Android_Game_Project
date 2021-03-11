@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import fr.isen.monsterfighter.Extensions.Extensions.dialog
-import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
+import fr.isen.monsterfighter.Fight.FightActivity
 import fr.isen.monsterfighter.databinding.ActivityGameSelectorBinding
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -27,7 +27,7 @@ class GameSelectorActivity : AppCompatActivity() {
 
         // Multiplayer button
         binding.selectorMutliplayer.setOnClickListener{
-            val intentCreat = Intent(this,FightActivity::class.java)
+            val intentCreat = Intent(this, FightActivity::class.java)
             MainScope().launch {
                 binding.selectorAnimation.setAnimation("battleAnimation.json")
                 binding.selectorAnimation.playAnimation()
