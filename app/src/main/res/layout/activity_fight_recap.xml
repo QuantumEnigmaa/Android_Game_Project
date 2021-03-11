@@ -6,4 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".Fight.FightRecapActivity">
 
+    <TextView
+        android:id="@+id/fightRecapTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="40dp"
+        android:padding="16dp"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:background="@drawable/border_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fightRecapDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="40dp"
+        android:gravity="center"
+        android:paddingBottom="156dp"
+        android:background="@drawable/border_rectangle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapTitle" />
+
+    <TextView
+        android:id="@+id/fightRecapDetailsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/recap_fight"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/fightRecapDetails"
+        app:layout_constraintStart_toStartOf="@+id/fightRecapDetails"
+        app:layout_constraintTop_toTopOf="@+id/fightRecapDetails" />
+
+    <TextView
+        android:id="@+id/fightRecapXPEarned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/recap_xp"
+        app:layout_constraintStart_toStartOf="@+id/fightRecapDetails"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetailsTitle" />
+
+    <TextView
+        android:id="@+id/fightRecapXP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/app_name"
+        app:layout_constraintStart_toEndOf="@+id/fightRecapPlus"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetailsTitle" />
+
+    <TextView
+        android:id="@+id/fightRecapXpWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/xo"
+        app:layout_constraintStart_toEndOf="@+id/fightRecapXP"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetailsTitle" />
+
+    <TextView
+        android:id="@+id/fightRecapPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/plus"
+        app:layout_constraintStart_toEndOf="@+id/fightRecapXPEarned"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetailsTitle" />
+
+    <Button
+        android:id="@+id/fightRecapMenuButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/menu"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetails" />
+
+    <Button
+        android:id="@+id/fightRecapReplayButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/replay"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fightRecapDetails" />
 </androidx.constraintlayout.widget.ConstraintLayout>

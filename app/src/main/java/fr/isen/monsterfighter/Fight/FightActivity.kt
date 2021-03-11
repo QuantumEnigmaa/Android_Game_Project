@@ -223,17 +223,23 @@ class FightActivity : AppCompatActivity() {
             updateStatsDisplay()
             if((mymonsterList[0].mcurrentHp<=0) || (ennemymonsterList[0].mcurrentHp<=0)){
                 gameOver=true
+                val win: Boolean
                 if(mymonsterList[0].mcurrentHp<=0){
                     binding.fightLog.text="Perdu"
+                    win = true
                 }
                 else{
                     binding.fightLog.text="gagné"
+                    win = false
                 }
                 if(player==1){
                     resetMonsters()
                     resetLobbys()
                 }
-                startActivity(Intent(this, FightRecapActivity::class.java))
+                // starting recap activity
+                val recapIntent = Intent(this, FightRecapActivity::class.java)
+                recapIntent.putExtra(STATE, win)
+                startActivity(recapIntent)
                 finish()
             }
         }
@@ -259,5 +265,9 @@ class FightActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    companion object {
+        const val STATE = "state"
     }
 }
