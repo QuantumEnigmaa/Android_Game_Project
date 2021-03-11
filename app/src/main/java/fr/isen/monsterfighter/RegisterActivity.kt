@@ -85,7 +85,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createUser() {
         val fbUserID = firebaseAuth.currentUser?.uid.toString()
-        val newUser = User(userName, "", 0, HashMap(), ArrayList())
+        val newUser = User(userName, "", 0, HashMap(), null)
         userRef.child(fbUserID).setValue(newUser)
 
         // Storing the userID  (and Current lvl in the cache)->not anymore /!\
