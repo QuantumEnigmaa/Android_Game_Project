@@ -92,9 +92,9 @@ class FightActivity : AppCompatActivity() {
 
         }
 
-        binding.attack4.setOnClickListener(){
+        binding.attack4.setOnClickListener {
             if(lobbysList[lobbyNumber-1].lTurn==player){
-                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(mymonsterList[0].mcurrentHp+mymonsterList[0].mintel*0.1)
+                userRef.child(me).child("listMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(mymonsterList[0].mcurrentHp+mymonsterList[0].mintel*0.1)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
                 }
