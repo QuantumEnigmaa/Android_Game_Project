@@ -47,4 +47,12 @@
     <string name="newM">New Monster</string>
     <string name="SwapM">Swap</string>
     <string name="DetailM">Detail</string>
+    <string name="menu">Menu</string>
+    <string name="replay">Rejouer</string>
+    <string name="recap_xp">Expérience gagnée :</string>
+    <string name="plus">+</string>
+    <string name="xo">XP</string>
+    <string name="recap_fight">Rapport de bataille</string>
+    <string name="win">Vous avez gagné !</string>
+    <string name="loss">Vous avez perdu !</string>
 </resources>
