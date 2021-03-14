@@ -41,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         // If the user has an account and wants to sign in
-        signInInputsArray = arrayOf(binding.accountLoginUsername, binding.accountLoginPassword)
+        signInInputsArray = arrayOf(binding.accountLoginEmail, binding.accountLoginPassword)
         binding.accountLoginButton.setOnClickListener {
             singInUser()
         }
@@ -69,7 +69,7 @@ class SignInActivity : AppCompatActivity() {
     private fun notEmpty(): Boolean = signInUsername.isNotEmpty() && signInPassword.isNotEmpty()
 
     private fun singInUser() {
-        signInUsername = binding.accountLoginUsername.text.toString().trim()
+        signInUsername = binding.accountLoginEmail.text.toString().trim()
         signInPassword = binding.accountLoginPassword.text.toString().trim()
 
         if (notEmpty()) {
@@ -79,6 +79,7 @@ class SignInActivity : AppCompatActivity() {
                         startActivity(Intent(this, HomeActivity::class.java))
                         toast("Vous êtes authentifié !")
                         finish()
+                        refreshSharedPref()
                     } else {
                         toast("Erreur d'authentification")
                     }
@@ -91,4 +92,14 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun refreshSharedPref(){
+        val fbUserID = firebaseAuth.currentUser?.uid.toString()
+        val sharedPreferences = getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE)
+        sharedPreferences.edit().putString(RegisterActivity.USER_ID, fbUserID).apply()
+        //TODO was it usefull to put lvl in cache?
+        // +opti put parts with img in cache and use it in recyclerview (in place of ", private val availablePartsList: ArrayList<Parts>")
+        //sharedPreferences.edit().putInt(USER_CURRENT_LVL, 0).apply()
+    }
+
 }

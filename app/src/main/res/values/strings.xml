@@ -43,4 +43,11 @@
     <string name="monster_members">Membres</string>
     <string name="channel_name">channel</string>
     <string name="channel_description">channel</string>
+    <string name="delete">del</string>
+    <string name="newP">New Part</string>
+    <string name="newM">New Monster</string>
+    <string name="SwapM">Swap</string>
+    <string name="DetailM">Detail</string>
+    <string name="wallpaper_desc">description du fond</string>
+    <string name="confirm_password">Comfirmer MdP</string>
 </resources>
