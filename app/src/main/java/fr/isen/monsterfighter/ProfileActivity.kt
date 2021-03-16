@@ -53,6 +53,7 @@ class ProfileActivity : AppCompatActivity() {
         // User signing out
         binding.profileDisconnectButton.setOnClickListener {
             firebaseAuth.signOut()
+            getSharedPreferences(RegisterActivity.USER_PREF, MODE_PRIVATE).edit().remove(RegisterActivity.USER_ID).apply()
             startActivity(Intent(this, SignInActivity::class.java))
             toast("Vous avez été déconnecté")
             finish()

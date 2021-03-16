@@ -190,5 +190,6 @@ class MonsterCreationActivity : AppCompatActivity() {
         // Adding monster to user's monster list
         //TODO prevent creating when slot above limite
         userRef.child(getUserId()).child("listMonsters").child(monsterId).setValue(monster)
+        userRef.child(getUserId()).child("selectedMonsters").setValue(monsterId)
     }
 }

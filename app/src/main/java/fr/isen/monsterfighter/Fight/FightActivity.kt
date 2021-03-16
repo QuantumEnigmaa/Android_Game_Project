@@ -207,7 +207,7 @@ class FightActivity : AppCompatActivity() {
                                 }
                             }
                             snapshot.children.firstOrNull { it.key.toString() == ennemy }?.let { it.getValue()
-                                it.children.firstOrNull { it.key.toString() == "listMonsters" }?.let {
+                                it.children.firstOrNull { it.key.toString() == "selectedMonsters" }?.let {
                                     ennemymonsterList.clear()
                                     for (i in it.children) {
                                         ennemymonsterList.add(i.getValue(Monster::class.java)!!)
