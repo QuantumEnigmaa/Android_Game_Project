@@ -8,6 +8,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import fr.isen.monsterfighter.Extensions.Extensions.toast
 import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
 import fr.isen.monsterfighter.MonsterRecap.MonsterRecapActivity
 import fr.isen.monsterfighter.databinding.ActivityHomeBinding
@@ -24,7 +25,14 @@ class HomeActivity : AppCompatActivity() {
 
         // The user wants to play
         binding.homeGameButton.setOnClickListener {
-            startActivity(Intent(this, GameSelectorActivity::class.java))
+            userRef.child(getUserId()).child("selectedMonsters").get().addOnSuccessListener {
+                if(it.exists()){
+                    startActivity(Intent(this, GameSelectorActivity::class.java))
+                }else{
+                    toast("Choisissez un monstre avant de combattre")
+                }
+            }
+
         }
 
 

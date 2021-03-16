@@ -22,6 +22,7 @@ import fr.isen.monsterfighter.R
 import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.databinding.RecapCellBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils
+import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 
 class RecapAdapter (private val entries: MutableList<Monster>, private val availablePartsList: ArrayList<Parts>, parentContext: Context): RecyclerView.Adapter<RecapAdapter.RecapViewHolder>() {
@@ -36,9 +37,8 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
     override fun onBindViewHolder(holder: RecapViewHolder, position: Int) {
 
         var key = ""
-        var colorBG = R.color.red
 
-        FirebaseUtils.userRef.child(getUserId()).child("listMonsters").get().addOnSuccessListener {
+        userRef.child(getUserId()).child("listMonsters").get().addOnSuccessListener {
             it.children.firstOrNull { it.getValue(Monster::class.java) == entries[position] }?.let {
                 it.key?.let {
                     key = it
@@ -51,12 +51,21 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
 
 
         holder.delbutton.setOnClickListener{
-            entries.removeAt(position)
-            FirebaseUtils.userRef.child(getUserId()).child("listMonsters").child(key).removeValue()
+            userRef.child(getUserId()).child("selectedMonsters").get().addOnSuccessListener {
+                var monsterID = it.value.toString()
+                monsterID?.let {
+                    if(it==key){
+                        userRef.child(getUserId()).child("selectedMonsters").removeValue()
+                    }
+
+                    entries.removeAt(position)
+                    userRef.child(getUserId()).child("listMonsters").child(key).removeValue()
+                    }
+                }
         }
 
         holder.monsterswap.setOnClickListener{
-            FirebaseUtils.userRef.child(getUserId()).child("selectedMonsters").setValue(key)
+            userRef.child(getUserId()).child("selectedMonsters").setValue(key)
         }
 
         holder.monsterdetail.setOnClickListener{

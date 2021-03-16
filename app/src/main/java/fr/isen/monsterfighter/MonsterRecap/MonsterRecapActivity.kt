@@ -69,11 +69,14 @@ class MonsterRecapActivity : AppCompatActivity() {
         userRef.child(getUserId()).child("selectedMonsters").addValueEventListener(
                 object: ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        var monsterID = snapshot.value.toString()
-                        monsterID?.let{
+                        snapshot.value.toString().let{
                             monsterRef.child(it).child("mname").get().addOnSuccessListener{
-                                var monsterName = it.value.toString()
-                                binding.MonsterUsedName.text = "Vous combattez avec $monsterName"
+                                if (snapshot.exists()) {
+                                    var monsterName = it.value.toString()
+                                    binding.MonsterUsedName.text = "Vous combattez avec $monsterName"
+                                }else{
+                                    binding.MonsterUsedName.text = "Aucun monstre choisi"
+                                }
                             }
                         }
                     }
