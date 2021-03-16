@@ -52,7 +52,7 @@ class FightActivity : AppCompatActivity() {
 
         binding.attack1.setOnClickListener {
             if(lobbysList[lobbyNumber-1].lTurn==player){
-                userRef.child(ennemy).child("selectedMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mstrength*0.2)
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mstrength*0.2)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
                 }
@@ -66,7 +66,7 @@ class FightActivity : AppCompatActivity() {
 
         binding.attack2.setOnClickListener {
             if(lobbysList[lobbyNumber-1].lTurn==player){
-                userRef.child(ennemy).child("selectedMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mintel*0.2)
+                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(ennemymonsterList[0].mcurrentHp-mymonsterList[0].mintel*0.2)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
                 }
@@ -94,7 +94,7 @@ class FightActivity : AppCompatActivity() {
 
         binding.attack4.setOnClickListener {
             if(lobbysList[lobbyNumber-1].lTurn==player){
-                userRef.child(me).child("selectedMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(mymonsterList[0].mcurrentHp+mymonsterList[0].mintel*0.1)
+                userRef.child(me).child("listMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(mymonsterList[0].mcurrentHp+mymonsterList[0].mintel*0.1)
                 if(player==1){
                     lobbyRef.child(lobbyNumber.toString()).child("lTurn").setValue(2)
                 }
@@ -118,12 +118,12 @@ class FightActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         snapshot.children.firstOrNull { it.key.toString() == mymonsterListKeys[0] }?.let {
                             it.getValue(Monster::class.java)?.let {
-                                userRef.child(me).child("selectedMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
+                                userRef.child(me).child("listMonsters").child(mymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
                             }
                         }
                         snapshot.children.firstOrNull { it.key.toString() == ennemymonsterListKeys[0] }?.let {
                             it.getValue(Monster::class.java)?.let {
-                                userRef.child(ennemy).child("selectedMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
+                                userRef.child(ennemy).child("listMonsters").child(ennemymonsterListKeys[0]).child("mcurrentHp").setValue(it.mcurrentHp)
                             }
                         }
                     }
@@ -192,22 +192,31 @@ class FightActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
+        var mymonsterid=""
+        var ennemymonsterid=""
         userRef.addValueEventListener(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         if (!gameOver){
                             snapshot.children.firstOrNull { it.key.toString() == me }?.let {
                                 it.getValue()
-                                it.children.firstOrNull{ it.key.toString()=="selectedMonsters"}?.let{
+                                it.children.firstOrNull{ it.key.toString()=="selectedMonsters"}?.let{mymonsterid= it.value as String }
+                                it.children.firstOrNull{ it.key.toString()=="listMonsters"}?.let{
+                                    Log.d("monstre", it.toString())
                                     mymonsterList.clear()
                                     for (i in it.children){
-                                        mymonsterList.add(i.getValue(Monster::class.java )!!)
-                                        mymonsterListKeys.add(i.key!!)
+                                        if (i.key==mymonsterid)
+                                        {
+                                            mymonsterList.add(i.getValue(Monster::class.java )!!)
+                                            mymonsterListKeys.add(i.key!!)
+                                        }
                                     }
                                 }
                             }
-                            snapshot.children.firstOrNull { it.key.toString() == ennemy }?.let { it.getValue()
-                                it.children.firstOrNull { it.key.toString() == "selectedMonsters" }?.let {
+                            snapshot.children.firstOrNull { it.key.toString() == ennemy }?.let {
+                                it.getValue()
+                                it.children.firstOrNull{ it.key.toString()=="selectedMonsters"}?.let{ennemymonsterid= it.value as String }
+                                it.children.firstOrNull { it.key.toString() == "listMonsters" }?.let {
                                     ennemymonsterList.clear()
                                     for (i in it.children) {
                                         ennemymonsterList.add(i.getValue(Monster::class.java)!!)
