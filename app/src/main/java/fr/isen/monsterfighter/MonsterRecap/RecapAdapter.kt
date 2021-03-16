@@ -42,28 +42,6 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
             it.children.firstOrNull { it.getValue(Monster::class.java) == entries[position] }?.let {
                 it.key?.let {
                     key = it
-
-                    FirebaseUtils.userRef.child(getUserId()).child("selectedMonsters")
-                        .addValueEventListener(
-                            object : ValueEventListener {
-                                override fun onDataChange(snapshot: DataSnapshot) {
-                                    Log.wtf("snapshot  =", snapshot.value.toString())
-                                    Log.wtf("key  =", key)
-                                    if (snapshot.value.toString() == key) {
-                                        Log.wtf("snapshot  =", "inif")
-                                        colorBG = R.color.purple_500
-                                    }
-                                    else{
-                                        Log.wtf("snapshot  =", "inelse")
-                                        colorBG = R.color.red
-                                    }
-                                    holder.detailbackground.setBackgroundColor(colorBG)
-                                }
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.i("monster loading error", error.toString())
-                                }
-                            }
-                        )
                 }
             }
         }
