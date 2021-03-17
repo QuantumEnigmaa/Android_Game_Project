@@ -46,7 +46,8 @@ class RecapAdapter (private val entries: MutableList<Monster>, private val avail
             }
         }
 
-        Picasso.get().load(availablePartsList[entries[position].mlstPartsId[0]].pImgUrl).into(holder.monsterimg)
+        if (availablePartsList.isNotEmpty())
+            Picasso.get().load(availablePartsList[entries[position].mlstPartsId[0]].pImgUrl).placeholder(R.drawable.searching).into(holder.monsterimg)
         holder.monstername.text = entries[position].mname
 
 
