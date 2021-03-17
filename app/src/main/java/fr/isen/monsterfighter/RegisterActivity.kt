@@ -1,6 +1,14 @@
 package fr.isen.monsterfighter
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
@@ -20,6 +28,12 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var userName: String
     lateinit var createAccountInputsArray: Array<EditText>
 
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder : Notification.Builder
+    private val channelId = "fr.isen.monsterfighter"
+    private val description = "Compte créé avec succès!"
+
     companion object {
         const val USER_PREF = "userPref"
         const val USER_ID = "id"
@@ -35,6 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerButton.setOnClickListener {
             createAccount()
         }
+
     }
 
     private fun notEmpty(): Boolean = binding.registerEmail.text.toString().trim().isNotEmpty() &&
@@ -61,19 +76,47 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createAccount() {
+        //Init Notif Manager
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         if (identicalPassword()) {
             // identicalPassword() returns true only  when inputs are not empty and passwords are identical
             userEmail = binding.registerEmail.text.toString().trim()
             userName = binding.registerUsername.text.toString()
             userPassword = binding.registerPassword.text.toString().trim()
 
+            val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             /*create a user*/
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPassword)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             toast("Votre compte a bien été créé !")
+                            //Notification
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                                notificationChannel= NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
+                                notificationChannel.enableLights(true)
+                                notificationChannel.lightColor= Color.GREEN
+                                notificationChannel.enableVibration(false)
+                                notificationManager.createNotificationChannel(notificationChannel)
+
+                                builder = Notification.Builder(this,channelId)
+                                        .setContentTitle("Compte Créé")
+                                        .setContentText("Compte créé avec succès!")
+                                        .setSmallIcon(R.mipmap.ic_launcher_round)
+                                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
+                                        .setContentIntent(pendingIntent)
+                            }else{
+                                builder = Notification.Builder(this)
+                                        .setContentTitle("Compte Créé")
+                                        .setContentText("Compte créé avec succès!")
+                                        .setSmallIcon(R.mipmap.ic_launcher_round)
+                                        .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
+                                        .setContentIntent(pendingIntent)
+                            }
+                            notificationManager.notify(1234,builder.build())
                             // sendEmailVerification()
                             startActivity(Intent(this, HomeActivity::class.java))
+
                             finish()
                             createUser()
                         } else {

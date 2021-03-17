@@ -46,13 +46,13 @@ class HomeActivity : AppCompatActivity() {
         }
 
         //Init Notif Manager
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        //notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // The user wants to check his profile
         binding.homeProfileButton.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
             //Test notification temporairement sur ce bouton afin de simplififer TODO
-            val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            /*val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 notificationChannel= NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity() {
                         .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher))
                         .setContentIntent(pendingIntent)
             }
-            notificationManager.notify(1234,builder.build())
+            notificationManager.notify(1234,builder.build())*/
 
         }
 
