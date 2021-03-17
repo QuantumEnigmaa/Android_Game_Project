@@ -23,6 +23,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         // The user wants to play
         binding.homeGameButton.setOnClickListener {
             userRef.child(getUserId()).child("selectedMonsters").get().addOnSuccessListener {

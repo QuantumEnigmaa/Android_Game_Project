@@ -23,7 +23,7 @@ import fr.isen.monsterfighter.utils.FirebaseUtils.storageRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 import java.util.*
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : MenuActivity() {
     companion object {
         private const val REQUEST_IMAGE_CHOOSE = 1
     }

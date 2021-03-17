@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import fr.isen.monsterfighter.Extensions.Extensions.dialog
 import fr.isen.monsterfighter.HomeActivity
+import fr.isen.monsterfighter.MenuActivity
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.MonsterRecap.MonsterRecapActivity
@@ -27,7 +28,7 @@ import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 
 //TODO Clean this messy code
-class MonsterCreationActivity : AppCompatActivity() {
+class MonsterCreationActivity : MenuActivity() {
 
     private lateinit var binding: ActivityMonsterCreationBinding
 

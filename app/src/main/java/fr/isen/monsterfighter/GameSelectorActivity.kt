@@ -11,7 +11,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class GameSelectorActivity : AppCompatActivity() {
+class GameSelectorActivity : MenuActivity() {
 
     private lateinit var binding: ActivityGameSelectorBinding
 

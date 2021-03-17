@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import fr.isen.monsterfighter.MenuActivity
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
@@ -22,7 +23,7 @@ import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 
-class MonsterRecapActivity : AppCompatActivity() {
+class MonsterRecapActivity : MenuActivity() {
 
     private lateinit var binding: ActivityMonsterRecapBinding
 

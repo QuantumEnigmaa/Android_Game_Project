@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MonsterFighter">
-        <activity android:name=".Fight.FightRecapActivity"></activity>
+        <activity android:name=".MenuActivity"></activity>
+        <activity android:name=".Fight.FightRecapActivity" />
         <activity android:name=".Fight.FightRecapActivity" />
         <activity android:name=".Fight.FightActivity" />
         <activity android:name=".MonsterRecap.MonsterRecapActivity" />

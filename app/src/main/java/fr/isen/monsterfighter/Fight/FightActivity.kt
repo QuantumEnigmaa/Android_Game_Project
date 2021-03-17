@@ -146,13 +146,13 @@ class FightActivity : AppCompatActivity() {
                 "\n dexterite="+mymonsterList[0].mdext+
                 "\n force="+mymonsterList[0].mstrength+
                 "\n intelligence="+mymonsterList[0].mintel+
-                "\n nom="+mymonsterList[0].mname+"\n dexterite"
+                "\n nom="+mymonsterList[0].mname+"\n"
 
         binding.enemyStats.text="hp="+ennemymonsterList[0].mcurrentHp+
                 "\n dexterite="+ennemymonsterList[0].mdext+
                 "\n force="+ennemymonsterList[0].mstrength+
                 "\n intelligence="+ennemymonsterList[0].mintel+
-                "\n nom="+ennemymonsterList[0].mname+"\n dexterite"
+                "\n nom="+ennemymonsterList[0].mname+"\n"
 
     }
 

@@ -9,6 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import fr.isen.monsterfighter.HomeActivity
+import fr.isen.monsterfighter.MenuActivity
 import fr.isen.monsterfighter.Model.User
 import fr.isen.monsterfighter.R
 import fr.isen.monsterfighter.RegisterActivity
@@ -18,7 +19,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class FightRecapActivity : AppCompatActivity() {
+class FightRecapActivity : MenuActivity() {
 
     private lateinit var binding: ActivityFightRecapBinding
 

@@ -43,8 +43,8 @@
     <string name="slots_max">20</string>
     <string name="slash">/</string>
     <string name="delete">del</string>
-    <string name="newP">New Part</string>
-    <string name="newM">New Monster</string>
+    <string name="newP">Ajouter</string>
+    <string name="newM">Nouveau monstre</string>
     <string name="SwapM">Swap</string>
     <string name="DetailM">Detail</string>
     <string name="menu">Menu</string>
@@ -59,4 +59,5 @@
     <string name="second_Attack">Attaque : Dext</string>
     <string name="third_Attack">Attaque : Intel</string>
     <string name="fourth_Attack">Soins</string>
+    <string name="homeIcon_desc">Icone du menu principal</string>
 </resources>
