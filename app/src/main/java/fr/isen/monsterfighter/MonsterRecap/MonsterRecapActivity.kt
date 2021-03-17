@@ -1,5 +1,6 @@
 package fr.isen.monsterfighter.MonsterRecap
 
+import android.annotation.SuppressLint
 import android.content.ClipData.Item
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +14,11 @@ import com.google.firebase.database.ValueEventListener
 import fr.isen.monsterfighter.Model.Monster
 import fr.isen.monsterfighter.Model.Parts
 import fr.isen.monsterfighter.MonsterCrea.MonsterCreationActivity
+import fr.isen.monsterfighter.R
 import fr.isen.monsterfighter.RegisterActivity
 import fr.isen.monsterfighter.databinding.ActivityMonsterRecapBinding
 import fr.isen.monsterfighter.utils.FirebaseUtils
+import fr.isen.monsterfighter.utils.FirebaseUtils.monsterRef
 import fr.isen.monsterfighter.utils.FirebaseUtils.userRef
 
 
@@ -46,6 +49,9 @@ class MonsterRecapActivity : AppCompatActivity() {
             startActivity(Intent(this, MonsterCreationActivity::class.java))
             finish()
         }
+
+        loadName()
+        binding.MonsterUsedName.text = "Aucun monstre choisi"
     }
 
     override fun onStop(){
@@ -56,6 +62,29 @@ class MonsterRecapActivity : AppCompatActivity() {
     override fun onPause(){
         finish()
         super.onPause()
+    }
+
+
+    private fun loadName() {
+        userRef.child(getUserId()).child("selectedMonsters").addValueEventListener(
+                object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        snapshot.value.toString().let{
+                            monsterRef.child(it).child("mname").get().addOnSuccessListener{
+                                if (snapshot.exists()) {
+                                    var monsterName = it.value.toString()
+                                    binding.MonsterUsedName.text = "Vous combattez avec $monsterName"
+                                }else{
+                                    binding.MonsterUsedName.text = "Aucun monstre choisi"
+                                }
+                            }
+                        }
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.i("LoadUserDataError", error.toString())
+                    }
+                }
+        )
     }
 
     private fun loadMonsters(){

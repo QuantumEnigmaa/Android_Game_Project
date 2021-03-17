@@ -54,6 +54,8 @@ class FightRecapActivity : AppCompatActivity() {
 
     private fun updateUserXp(xpPoints: Int) {
         val userXp = loadUserXP()
+        //TODO CHECK WHY XP IS RESET EACH TIME ONE GAINS XP
+        Log.i("userXP", userXp.toString())
         if (userXp == 100) {
             userRef.child(getUserId()).child("userLvl").setValue(0)
 

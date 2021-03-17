@@ -55,4 +55,8 @@
     <string name="recap_fight">Rapport de bataille</string>
     <string name="win">Vous avez gagné !</string>
     <string name="loss">Vous avez perdu !</string>
+    <string name="first_Attack">Attaque : Force</string>
+    <string name="second_Attack">Attaque : Dext</string>
+    <string name="third_Attack">Attaque : Intel</string>
+    <string name="fourth_Attack">Soins</string>
 </resources>
