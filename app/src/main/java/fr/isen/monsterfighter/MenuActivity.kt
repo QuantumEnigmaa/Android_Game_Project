@@ -14,6 +14,7 @@ open class MenuActivity : AppCompatActivity() {
 
         menu?.findItem(R.id.menuHome)?.actionView?.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
 
         return super.onCreateOptionsMenu(menu)
