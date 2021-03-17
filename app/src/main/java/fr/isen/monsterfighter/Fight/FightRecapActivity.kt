@@ -30,7 +30,7 @@ class FightRecapActivity : AppCompatActivity() {
         //Retrieving data from fight activity
         val state = intent.getBooleanExtra(FightActivity.STATE, false)
 
-        if (state) {
+        if (!state) {
             binding.fightRecapTitle.text = getString(R.string.win)
             binding.fightRecapXP.text = WIN_XP_POINTS.toString()
             updateUserXp(WIN_XP_POINTS)
